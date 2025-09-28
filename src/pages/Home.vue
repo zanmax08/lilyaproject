@@ -1,19 +1,18 @@
 <template>
   <div class="home">
-    <section class="hero hero-pink">
-      <div class="hero-inner">
+    <section class="hero hero-pink hero-bg">
+      <div class="hero-inner with-photo">
         <div class="hero-left">
           <h1 class="hero-title">Liliia | Kids UGC<br/>Mom Mentor</h1>
           <h3 class="hero-sub">&amp; Home Creator</h3>
           <div class="hero-cta">
-            <router-link to="/portfolio" class="btn large">VIEW PORTFOLIO</router-link>
+            <router-link to="/portfolio" class="btn large"><span>VIEW PORTFOLIO</span></router-link>
           </div>
         </div>
-
-        <div class="hero-right">
-          <div class="arch-frame">
+        <div class="hero-photo-arch">
+          <div class="arch-frame big">
             <div class="arch-inner">
-              <img src="https://testugclilia.my.canva.site/_assets/media/489875f501d97026bd993eb6b575692a.jpg" alt="portrait" />
+              <img :src="liliaPhoto" alt="Liliia" />
             </div>
             <div class="arch-base"></div>
           </div>
@@ -59,8 +58,12 @@ content.</p>
 
 <script>
 import { t } from '../i18n'
+import liliaPhotoUrl from '/liliaGL.PNG?url'
 
 export default {
+  data(){
+    return { liliaPhoto: liliaPhotoUrl }
+  },
   computed: {
     t() { return t },
     lead() { return t('hero.lead') }
@@ -69,42 +72,58 @@ export default {
 </script>
 
 <style scoped>
+.hero-pink{position:relative;padding:2.2rem 0 2.5rem;background:var(--header-gradient);color:#fff;overflow:hidden}
+/* wave decorative overlay */
+.hero-bg::before{content:"";position:absolute;inset:0;background:url(/glscreen.png) left bottom/auto 120% no-repeat;opacity:.85;pointer-events:none;mix-blend-mode:screen}
 
-.hero-pink{padding:2.5rem 0;background:var(--header-gradient);color:#fff;position:relative}
-.hero-inner{max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:4rem 2rem}
-.hero-left{flex:1;max-width:900px}
-.hero-title{font-size:6.2rem;line-height:0.9;margin:0 0 0.6rem;font-weight:900}
-.hero-sub{font-size:2rem;margin:0 0 1.8rem;color:#fff;opacity:0.95}
-.hero-cta{margin-top:1.5rem}
-.btn.large{padding:1rem 2.5rem;border-radius:48px;background:linear-gradient(90deg,#fff1f8,#ffdff3);color:#111;font-weight:700}
-.hero-right{width:520px;flex-shrink:0;display:flex;justify-content:flex-end}
-.arch-frame{width:520px;height:520px;border-radius:50% 50% 0 0/60% 60% 0 0;overflow:hidden;padding:10px;background:linear-gradient(180deg,#f7e3e9,#f8e6df)}
-.arch-inner{width:100%;height:calc(100% - 36px);overflow:hidden;border-radius:40% 40% 10% 10%/50% 50% 10% 10%;background:transparent}
-.arch-inner img{width:100%;height:100%;object-fit:cover;display:block}
-.arch-base{height:36px;background:#fbeeea;margin-top:8px;border-radius:0 0 10px 10px}
+.hero-inner{max-width:1700px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:4rem;padding:3rem 3.5rem}
+.hero-inner.with-photo{min-height:520px}
+.hero-left{flex:1;max-width:900px;z-index:1}
+.hero-title{font-size:6rem;line-height:.92;margin:0 0 1.2rem;font-weight:800;letter-spacing:.5px}
+.hero-sub{font-size:2.4rem;margin:0 0 2.6rem;font-weight:600}
+.hero-cta .btn.large{position:relative;overflow:hidden;padding:1.05rem 3.2rem;border-radius:56px;background:linear-gradient(90deg,#fff4ea 0%,#ffd7f2 40%,#ffc8ec 60%,#ffbde5 100%);background-size:200% 100%;background-position:0 0;color:#111;font-weight:700;letter-spacing:.5px;box-shadow:0 4px 18px -4px rgba(0,0,0,.15);transition:background-position .6s ease,transform .42s cubic-bezier(.16,.8,.3,1),box-shadow .4s;will-change:transform,background-position;transform-origin:center center}
+.hero-cta .btn.large span{position:relative}
+/* Glow layer */
+/* (Glow removed) */
+/* Hover / focus visible bigger zoom */
+.hero-cta .btn.large:hover,
+.hero-cta .btn.large:focus-visible{background-position:100% 0;transform:scale(1.12);box-shadow:0 14px 38px -10px rgba(0,0,0,.32)}
+/* Show glow */
+/* (Glow activation removed) */
+/* Active (pressed) slightly less scale to give tap feedback */
+.hero-cta .btn.large:active{transform:scale(1.08);transition-duration:.2s}
 
+/* Arch photo block */
+.hero-photo-arch{width:540px;flex-shrink:0;display:flex;justify-content:flex-end;z-index:1}
+.arch-frame.big{width:540px;height:540px;display:flex;flex-direction:column;padding:14px;background:linear-gradient(180deg,#fdebe4,#f8dccf);border-radius:52% 52% 40px 40px/60% 60% 40px 40px;box-shadow:0 12px 40px -8px rgba(0,0,0,.18)}
+.arch-inner{flex:1;overflow:hidden;border-radius:48% 48% 28px 28px/58% 58% 30px 30px;position:relative}
+.arch-inner img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.arch-base{display:none}
+
+/* Responsive */
+@media (max-width:1400px){
+  .hero-title{font-size:5rem}
+  .hero-sub{font-size:2rem}
+  .hero-photo-arch{width:500px}
+  .arch-frame.big{width:500px;height:500px}
+}
 @media (max-width:1100px){
-  .hero-title{font-size:4.2rem}
-  .arch-frame{width:420px;height:420px}
+  .hero-title{font-size:4rem}
+  .hero-photo-arch{width:420px}
+  .arch-frame.big{width:420px;height:420px}
 }
-
-@media (max-width:900px){
-  .hero-inner{flex-direction:column;align-items:flex-start}
-  .hero-right{width:100%;order:2}
-  .arch-frame{width:100%;height:320px;border-radius:20px}
-  .hero-title{font-size:2rem}
-  .hero-sub{font-size:1.1rem}
+@media (max-width:960px){
+  .hero-inner{flex-direction:column;align-items:flex-start;gap:2.2rem;padding:3rem 2rem}
+  .hero-photo-arch{width:100%}
+  .arch-frame.big{width:100%;height:380px;border-radius:40px;padding:12px}
+  .arch-inner{border-radius:30px}
+  .hero-title{font-size:3rem}
+  .hero-sub{font-size:1.5rem;margin-bottom:1.8rem}
+  .arch-base{display:none}
 }
-
-@media (max-width:1000px){
-  .hero-inner{flex-direction:column;align-items:flex-start}
-  .hero-portrait{width:100%;order:2}
-  .arch{width:100%;height:260px;border-radius:20px}
-  .hero-title{font-size:2rem}
-}
-
-@media (max-width:640px){
-  .hero-title{font-size:1.5rem}
-  .examples-grid img{height:140px}
+@media (max-width:560px){
+  .hero-title{font-size:2.25rem}
+  .hero-sub{font-size:1.25rem}
+  .hero-cta .btn.large{padding:.9rem 2.2rem}
 }
 </style>
