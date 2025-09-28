@@ -11,5 +11,15 @@
   "folders": [],
   "contact": { "heading": "Contáctame", "intro": "¿Interesado en colaborar? Envíame un breve brief.", "name": "Nombre", "namePlaceholder": "Tu nombre", "email": "Email", "emailPlaceholder": "tucorreo@ejemplo.com", "message": "Mensaje", "messagePlaceholder": "Breve brief, plazos, presupuesto (opcional)", "submit": "Enviar", "thanks": "Gracias — mensaje guardado localmente (demo)." },
   "socials": { "heading": "Encuéntrame", "instagram": "Instagram", "tiktok": "TikTok", "youtube": "YouTube" }
+  ,"specialties": {
+    "heading": "mis especialidades",
+    "features": [
+      { "title": "Presencia en vlogs", "desc": "Mostrar productos en vlogs de estilo de vida de forma natural y atractiva." },
+      { "title": "Videos de prueba", "desc": "Probo juguetes, moda, cosméticos y más mientras comparto primeras impresiones en cámara." },
+      { "title": "Reseñas de producto", "desc": "Clips cortos que destacan el producto, explican sus beneficios y muestran qué lo hace único." }
+    ],
+    "lead": "Creo videos cortos que captan la atención y mantienen al público enganchado — justo lo que tu marca necesita.",
+    "cta": "Contactarme"
+  }
   ,"ui": { "toggle_menu": "Abrir menú", "logo_alt": "Lilya Creates" }
 }

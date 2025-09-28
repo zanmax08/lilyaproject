@@ -53,6 +53,28 @@ content.</p>
       </div>
     </section>
     
+    <!-- Specialties Section -->
+    <section class="specialties">
+      <h2 class="spec-heading">{{ t('specialties.heading') }}</h2>
+      <div class="spec-features">
+        <div class="spec-feature" v-for="(f,i) in t('specialties.features')" :key="i">
+          <h3 class="spec-ft-title">{{ f.title }}</h3>
+          <p class="spec-ft-desc">{{ f.desc }}</p>
+        </div>
+      </div>
+      <div class="spec-main">
+        <div class="spec-photo-wrap">
+          <div class="spec-photo-circle">
+            <img :src="liliaPhoto" alt="" />
+          </div>
+        </div>
+        <div class="spec-text-block">
+          <p class="spec-lead">{{ t('specialties.lead') }}</p>
+          <router-link to="/contact" class="btn spec-cta">{{ t('specialties.cta') }}</router-link>
+        </div>
+      </div>
+    </section>
+    
   </div>
 </template>
 
@@ -125,5 +147,62 @@ export default {
   .hero-title{font-size:2.25rem}
   .hero-sub{font-size:1.25rem}
   .hero-cta .btn.large{padding:.9rem 2.2rem}
+}
+</style>
+
+<style scoped>
+/* Specialties Section */
+.specialties{max-width:1700px;margin:0 auto;padding:3.5rem 3rem 4.5rem;position:relative}
+.spec-heading{font-size:4.2rem;font-weight:300;text-align:center;margin:0 0 2.2rem;letter-spacing:.5px}
+.spec-features{display:flex;justify-content:center;gap:4.5rem;flex-wrap:wrap;margin:0 0 3.5rem}
+.spec-feature{max-width:340px;text-align:center}
+.spec-ft-title{font-size:1.1rem;font-weight:500;margin:0 0 .6rem;letter-spacing:.5px}
+.spec-ft-desc{margin:0;font-size:.98rem;line-height:1.35;color:#222}
+.spec-main{display:flex;align-items:center;justify-content:center;gap:6rem;background:radial-gradient(circle at 22% 18%,#ffffff 0%,#faf5ff 35%,#f7f2ff 60%,#f5f3ff 78%,#ffffff 100%);border-radius:120px;padding:5rem 6rem;position:relative;overflow:hidden}
+.spec-photo-wrap{flex:0 0 auto}
+.spec-photo-circle{width:520px;height:520px;border-radius:50%;overflow:hidden;position:relative;box-shadow:0 12px 60px -18px rgba(0,0,0,.25)}
+.spec-photo-circle img{width:100%;height:100%;object-fit:cover;display:block}
+.spec-text-block{max-width:640px;display:flex;flex-direction:column;align-items:center;gap:3.2rem}
+.spec-lead{font-size:2rem;line-height:1.28;font-weight:400;text-align:center;letter-spacing:1.5px;margin:0}
+.spec-cta{display:inline-block;padding:1.05rem 3.4rem;border-radius:54px;background:linear-gradient(90deg,#fff4ea 0%,#ffd7f2 40%,#ffc8ec 60%,#ffbde5 100%);border:4px solid rgba(216,134,186,0.55);font-weight:500;letter-spacing:2px;font-size:1.65rem;color:#111;text-decoration:none;transition:.45s cubic-bezier(.16,.8,.3,1);box-shadow:0 4px 22px -6px rgba(0,0,0,.2)}
+.spec-cta:hover{transform:scale(1.07);box-shadow:0 14px 38px -10px rgba(0,0,0,.32)}
+.spec-cta:active{transform:scale(1.02)}
+
+@media (max-width:1500px){
+  .spec-photo-circle{width:470px;height:470px}
+  .spec-main{gap:5rem;padding:4.5rem 5rem}
+}
+@media (max-width:1250px){
+  .spec-photo-circle{width:420px;height:420px}
+  .spec-main{gap:4rem;padding:4rem 4rem;border-radius:90px}
+  .spec-heading{font-size:3.6rem}
+  .spec-lead{font-size:1.8rem}
+}
+@media (max-width:1080px){
+  .spec-photo-circle{width:380px;height:380px}
+  .spec-main{gap:3rem;padding:3.5rem 3rem}
+  .spec-heading{font-size:3.4rem}
+  .spec-lead{font-size:1.65rem}
+}
+@media (max-width:960px){
+  .spec-main{flex-direction:column;gap:2.8rem;padding:3.2rem 2.4rem;border-radius:70px}
+  .spec-photo-circle{width:460px;height:460px}
+  .spec-text-block{gap:2.4rem}
+  .spec-lead{font-size:1.55rem;letter-spacing:1.2px}
+  .spec-cta{font-size:1.4rem;padding:.95rem 2.8rem}
+}
+@media (max-width:640px){
+  .specialties{padding:2.6rem 1.2rem 3.4rem}
+  .spec-features{gap:2rem;margin-bottom:2.8rem}
+  .spec-heading{font-size:2.8rem;margin-bottom:1.4rem}
+  .spec-photo-circle{width:340px;height:340px}
+  .spec-main{padding:2.4rem 1.4rem;border-radius:50px}
+  .spec-lead{font-size:1.35rem}
+  .spec-cta{font-size:1.2rem;padding:.85rem 2.2rem;letter-spacing:1.2px}
+}
+@media (max-width:420px){
+  .spec-photo-circle{width:280px;height:280px}
+  .spec-heading{font-size:2.4rem}
+  .spec-lead{font-size:1.22rem}
 }
 </style>
