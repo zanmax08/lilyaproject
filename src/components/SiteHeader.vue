@@ -19,13 +19,20 @@
       <button class="burger" @click="$emit('toggle-mobile')" :aria-label="t('ui.toggle_menu')">
         <span :class="{open: mobileOpen}"></span>
       </button>
-
-      <div class="lang-select">
-        <select v-model="langLocal" @change="onLangChange">
-          <option value="en">EN</option>
-          <option value="ru">RU</option>
-          <option value="es">ES</option>
-        </select>
+      <div class="right-cluster">
+        <div class="social-links" aria-label="social links">
+          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="icon ig">IG</a>
+          <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok" class="icon tt">TT</a>
+          <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube" class="icon yt">YT</a>
+          <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" class="icon fb">FB</a>
+        </div>
+        <div class="lang-select">
+          <select v-model="langLocal" @change="onLangChange">
+            <option value="en">EN</option>
+            <option value="ru">RU</option>
+            <option value="es">ES</option>
+          </select>
+        </div>
       </div>
     </div>
 
@@ -67,6 +74,19 @@ export default {
 .site-header .lang-select{position:static;margin-left:12px}
 .header-inner{padding-left:96px;padding-right:96px}
 .main-nav{margin-left:auto}
+.right-cluster{display:flex;align-items:center;gap:14px;margin-left:32px}
+.social-links{display:flex;align-items:center;gap:10px}
+.social-links .icon{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;font-size:.7rem;font-weight:600;letter-spacing:.5px;border-radius:50%;background:rgba(255,255,255,0.12);color:#fff;text-decoration:none;position:relative;overflow:hidden;transition:background .25s,transform .25s}
+.social-links .icon:hover{background:rgba(255,255,255,0.25);transform:translateY(-2px)}
+.social-links .icon:active{transform:translateY(0);background:rgba(255,255,255,0.35)}
+.social-links .icon.ig{background:linear-gradient(135deg,#F58529,#DD2A7B,#8134AF,#515BD4);}
+.social-links .icon.ig:hover{filter:brightness(1.1)}
+.social-links .icon.tt{background:#111}
+.social-links .icon.tt:hover{background:#222}
+.social-links .icon.yt{background:#cc0000}
+.social-links .icon.yt:hover{background:#e60000}
+.social-links .icon.fb{background:#1877F2}
+.social-links .icon.fb:hover{background:#2b86f7}
 .logo{height:64px;display:block}
 .tag{color:rgba(255,255,255,0.85);font-size:0.9rem}
 .main-nav{color:rgba(255,255,255,0.9)}
@@ -89,6 +109,7 @@ export default {
   .burger{display:block}
   .mobile-nav{display:flex;flex-direction:column;gap:8px;padding:12px 18px;background:#3a2b2b}
   .mobile-nav a{color:#fff;padding:8px 0}
+  .social-links{display:none}
 }
 
 .lang-select{margin-left:12px}
