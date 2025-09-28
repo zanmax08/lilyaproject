@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "title": "Lilya — Creadora UGC / Videomaker",
+    "footer": "Lilya — Creadora UGC"
+  },
+  "nav": { "home": "Inicio", "portfolio": "Portafolio", "services": "Servicios", "contact": "Contacto" },
+  "hero": { "title": "UGC CREATOR & VIDEOMAKER", "lead": "Soy Lilya — creo vídeos UGC, reels y anuncios creativos. Lista para colaborar.", "portfolio": "Portafolio", "contact": "Contactarme" },
+  "about": { "heading": "Sobre mí", "text": "Mi pasión por la filmación y la fotografía comenzó como un hobby y se convirtió en mi profesión." },
+  "services": { "heading": "Servicios", "list": ["Videos UGC", "Reels y anuncios cortos", "Grabaciones de producto"], "description": "Ofrezco servicios de vídeo centrados en UGC, reels y grabaciones de producto.", "paragraphs": ["Vídeos auténticos y cortos para redes sociales.", "Reels atractivos para TikTok, Instagram y más.", "Clips de producto y lifestyle para e‑commerce."] },
+  "portfolio": { "desc": "Selección de vídeos UGC, reels y promos.", "preview": "Vista previa de vídeo", "items": [], "empty": "No hay elementos en el portafolio todavía." },
+  "folders": [],
+  "contact": { "heading": "Contáctame", "intro": "¿Interesado en colaborar? Envíame un breve brief.", "name": "Nombre", "namePlaceholder": "Tu nombre", "email": "Email", "emailPlaceholder": "tucorreo@ejemplo.com", "message": "Mensaje", "messagePlaceholder": "Breve brief, plazos, presupuesto (opcional)", "submit": "Enviar", "thanks": "Gracias — mensaje guardado localmente (demo)." },
+  "socials": { "heading": "Encuéntrame", "instagram": "Instagram", "tiktok": "TikTok", "youtube": "YouTube" }
+  ,"ui": { "toggle_menu": "Abrir menú", "logo_alt": "Lilya Creates" }
+}
