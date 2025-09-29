@@ -36,5 +36,29 @@
       "<strong>5M+ vistas.</strong> Crecimiento orgánico para marcas.",
       "— UGC Kids — Ayudando a las mamás a ganar con contenido."
     ]
+  },
+  "portfolioPage": {
+    "hero": {
+      "ugc": "Creadora UGC",
+      "portfolio": "Portafolio",
+      "paragraphs": [
+        "UGC auténtico que genera confianza y comparte la audiencia.",
+        "Formato madre + hijo para marcas familiares e infantiles.",
+        "5M+ vistas orgánicas acumuladas.",
+        "Guiones con historia, encuadre limpio y ritmo natural para Reels/TikTok.",
+        "Desplaza para ver ejemplos y formatos."
+      ]
+    },
+    "examples": {
+      "video": "Vídeo",
+      "examples": "ejemplos",
+      "lead": "Una selección rotativa de creatividades UGC verticales (miniaturas difuminadas por privacidad).",
+      "play": "Reproducir vídeo"
+    },
+    "cta": {
+      "heading": "¿Listos para colaborar?",
+      "text": "Creamos UGC que detiene el scroll y convierte.",
+      "button": "Contactarme"
+    }
   }
 }

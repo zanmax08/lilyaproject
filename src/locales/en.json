@@ -36,5 +36,29 @@
       "<strong>5M+ views.</strong> Organic growth for brands.",
       "— UGC Kids — Helping moms earn with content."
     ]
+  },
+  "portfolioPage": {
+    "hero": {
+      "ugc": "UGC Creator",
+      "portfolio": "Portfolio",
+      "paragraphs": [
+        "Authentic short-form UGC that builds trust and drives saves & shares.",
+        "Mother + child production option for family & kids brands.",
+        "5M+ organic views across campaigns and growing.",
+        "Story-driven scripts, clean framing, natural pacing — optimized for Reels/TikTok.",
+        "Scroll to see examples and formats I offer."
+      ]
+    },
+    "examples": {
+      "video": "Video",
+      "examples": "examples",
+      "lead": "A rotating selection of vertical UGC creatives (thumbnails blurred for privacy).",
+      "play": "Play video"
+    },
+    "cta": {
+      "heading": "Ready to collaborate?",
+      "text": "Let’s create scroll‑stopping, conversion‑minded UGC for your brand.",
+      "button": "Contact me"
+    }
   }
 }
