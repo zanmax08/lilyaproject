@@ -9,11 +9,9 @@
       <nav class="main-nav" v-reveal="{mode:'up',delay:140}">
         <router-link to="/" class="nav-link hover-pop">{{ t('nav.home') }}</router-link>
         <span class="sep">·</span>
-        <router-link to="/portfolio" class="nav-link hover-pop">{{ t('nav.portfolio') }}</router-link>
-        <span class="sep">·</span>
-        <router-link to="/services" class="nav-link hover-pop">{{ t('nav.services') }}</router-link>
-        <span class="sep">·</span>
-        <router-link to="/contact" class="nav-link hover-pop">{{ t('nav.contact') }}</router-link>
+  <router-link to="/portfolio" class="nav-link hover-pop">{{ t('nav.portfolio') }}</router-link>
+  <span class="sep">·</span>
+  <router-link to="/contact" class="nav-link hover-pop">{{ t('nav.contact') }}</router-link>
       </nav>
 
       <button class="burger" @click="$emit('toggle-mobile')" :aria-label="t('ui.toggle_menu')" v-reveal="{mode:'up',delay:220}">
@@ -38,9 +36,8 @@
 
     <div class="mobile-nav" v-if="mobileOpen">
       <router-link to="/" @click.native="$emit('close-mobile')">{{ t('nav.home') }}</router-link>
-      <router-link to="/portfolio" @click.native="$emit('close-mobile')">{{ t('nav.portfolio') }}</router-link>
-      <router-link to="/services" @click.native="$emit('close-mobile')">{{ t('nav.services') }}</router-link>
-      <router-link to="/contact" @click.native="$emit('close-mobile')">{{ t('nav.contact') }}</router-link>
+  <router-link to="/portfolio" @click.native="$emit('close-mobile')">{{ t('nav.portfolio') }}</router-link>
+  <router-link to="/contact" @click.native="$emit('close-mobile')">{{ t('nav.contact') }}</router-link>
     </div>
   </header>
 </template>
