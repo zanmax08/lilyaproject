@@ -1,14 +1,16 @@
 <template>
   <div class="portfolio-page">
     <PortfolioHero />
-    <VideoExamples :items="videoItems" />
-    <PortfolioCTA />
+  <VideoExamples :items="videoItems" />
+  <PortfolioFolders :folders="folderItems" />
+  <PortfolioCTA />
   </div>
 </template>
 
 <script>
 import PortfolioHero from '@/components/portfolio/PortfolioHero.vue'
 import VideoExamples from '@/components/portfolio/VideoExamples.vue'
+import PortfolioFolders from '@/components/portfolio/PortfolioFolders.vue'
 import PortfolioCTA from '@/components/portfolio/PortfolioCTA.vue'
 
 // simple static sample thumbnails (reuse placeholder path if needed)
@@ -16,9 +18,16 @@ const videoItems = Array.from({length:4}).map((_,i)=>({ thumb:'/'+'glscreen.png'
 
 export default {
   name:'PortfolioPage',
-  components:{ PortfolioHero, VideoExamples, PortfolioCTA },
+  components:{ PortfolioHero, VideoExamples, PortfolioFolders, PortfolioCTA },
   setup(){
-    return { videoItems }
+    const folderItems = [
+      { key:'mom', label:'Mom & Daughter' },
+      { key:'kids', label:'Kids Toys' },
+      { key:'beauty', label:'Beauty' },
+      { key:'food', label:'Food & Beverages' },
+      { key:'other', label:'Other' }
+    ]
+    return { videoItems, folderItems }
   }
 }
 </script>
