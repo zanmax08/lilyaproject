@@ -19,10 +19,18 @@
       </button>
       <div class="right-cluster" v-reveal="{mode:'right',delay:200}">
         <div class="social-links" aria-label="social links">
-          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="icon ig hover-pop">IG</a>
-          <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok" class="icon tt hover-pop">TT</a>
-          <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube" class="icon yt hover-pop">YT</a>
-          <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" class="icon fb hover-pop">FB</a>
+          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="icon-img hover-pop">
+            <img src="/inst.png" alt="Instagram" loading="lazy" />
+          </a>
+          <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok" class="icon-img hover-pop">
+            <img src="/tt.png" alt="TikTok" loading="lazy" />
+          </a>
+          <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube" class="icon-img hover-pop">
+            <img src="/yt.png" alt="YouTube" loading="lazy" />
+          </a>
+          <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" class="icon-img hover-pop">
+            <img src="/fb.png" alt="Facebook" loading="lazy" />
+          </a>
         </div>
         <div class="lang-select" v-reveal="{mode:'up',delay:300}">
           <select v-model="langLocal" @change="onLangChange">
@@ -73,17 +81,10 @@ export default {
 .main-nav{margin-left:auto}
 .right-cluster{display:flex;align-items:center;gap:14px;margin-left:32px}
 .social-links{display:flex;align-items:center;gap:10px}
-.social-links .icon{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;font-size:.7rem;font-weight:600;letter-spacing:.5px;border-radius:50%;background:rgba(255,255,255,0.12);color:#fff;text-decoration:none;position:relative;overflow:hidden;transition:background .25s,transform .25s}
-.social-links .icon:hover{background:rgba(255,255,255,0.25);transform:translateY(-2px)}
-.social-links .icon:active{transform:translateY(0);background:rgba(255,255,255,0.35)}
-.social-links .icon.ig{background:linear-gradient(135deg,#F58529,#DD2A7B,#8134AF,#515BD4);}
-.social-links .icon.ig:hover{filter:brightness(1.1)}
-.social-links .icon.tt{background:#111}
-.social-links .icon.tt:hover{background:#222}
-.social-links .icon.yt{background:#cc0000}
-.social-links .icon.yt:hover{background:#e60000}
-.social-links .icon.fb{background:#1877F2}
-.social-links .icon.fb:hover{background:#2b86f7}
+.social-links .icon-img{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.18);backdrop-filter:blur(4px);overflow:hidden;transition:transform .3s,background .3s}
+.social-links .icon-img:hover{background:rgba(255,255,255,0.32);transform:translateY(-3px)}
+.social-links .icon-img:active{transform:translateY(-1px)}
+.social-links .icon-img img{display:block;width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply}
 .logo{height:64px;display:block}
 .tag{color:rgba(255,255,255,0.85);font-size:0.9rem}
 .main-nav{color:rgba(255,255,255,0.9)}
