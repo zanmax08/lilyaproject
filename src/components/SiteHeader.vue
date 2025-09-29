@@ -1,32 +1,32 @@
 <template>
-  <header class="site-header">
+  <header class="site-header" v-reveal:fade>
     <div class="header-inner">
-      <div class="brand">
-        <img src="/logo.png" :alt="t('ui.logo_alt')" class="logo" onerror="this.onerror=null;this.src='/logo-placeholder.svg'" />
-        <div class="tag">{{ t('hero.title') }}</div>
+      <div class="brand" v-reveal="{mode:'left',delay:60}">
+        <img src="/logo.png" :alt="t('ui.logo_alt')" class="logo hover-pop" onerror="this.onerror=null;this.src='/logo-placeholder.svg'" />
+        <div class="tag" v-reveal="{mode:'up',delay:160}">{{ t('hero.title') }}</div>
       </div>
 
-      <nav class="main-nav">
-        <router-link to="/">{{ t('nav.home') }}</router-link>
+      <nav class="main-nav" v-reveal="{mode:'up',delay:140}">
+        <router-link to="/" class="nav-link hover-pop">{{ t('nav.home') }}</router-link>
         <span class="sep">·</span>
-        <router-link to="/portfolio">{{ t('nav.portfolio') }}</router-link>
+        <router-link to="/portfolio" class="nav-link hover-pop">{{ t('nav.portfolio') }}</router-link>
         <span class="sep">·</span>
-        <router-link to="/services">{{ t('nav.services') }}</router-link>
+        <router-link to="/services" class="nav-link hover-pop">{{ t('nav.services') }}</router-link>
         <span class="sep">·</span>
-        <router-link to="/contact">{{ t('nav.contact') }}</router-link>
+        <router-link to="/contact" class="nav-link hover-pop">{{ t('nav.contact') }}</router-link>
       </nav>
 
-      <button class="burger" @click="$emit('toggle-mobile')" :aria-label="t('ui.toggle_menu')">
+      <button class="burger" @click="$emit('toggle-mobile')" :aria-label="t('ui.toggle_menu')" v-reveal="{mode:'up',delay:220}">
         <span :class="{open: mobileOpen}"></span>
       </button>
-      <div class="right-cluster">
+      <div class="right-cluster" v-reveal="{mode:'right',delay:200}">
         <div class="social-links" aria-label="social links">
-          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="icon ig">IG</a>
-          <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok" class="icon tt">TT</a>
-          <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube" class="icon yt">YT</a>
-          <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" class="icon fb">FB</a>
+          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="icon ig hover-pop">IG</a>
+          <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok" class="icon tt hover-pop">TT</a>
+          <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube" class="icon yt hover-pop">YT</a>
+          <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" class="icon fb hover-pop">FB</a>
         </div>
-        <div class="lang-select">
+        <div class="lang-select" v-reveal="{mode:'up',delay:300}">
           <select v-model="langLocal" @change="onLangChange">
             <option value="en">EN</option>
             <option value="ru">RU</option>
