@@ -1,6 +1,12 @@
 
 <template>
   <section class="contact-layout" v-reveal:fade>
+    <transition name="toast-fade">
+      <div v-if="toastSuccess" class="toast success" role="status" aria-live="polite">
+        <span class="icon">✔</span>
+        <span class="text">{{ t('contactStatus.sent') }}</span>
+      </div>
+    </transition>
     <div class="contact-left">
       <h1 class="mega">
         <span class="block line1">{{ t('contact.drop') }}</span>
@@ -44,7 +50,7 @@ export default {
     t() { return t }
   },
   data() {
-  return { name: '', email: '', messenger: '', message: '', sent: false, loading: false, error: '' }
+  return { name: '', email: '', messenger: '', message: '', sent: false, loading: false, error: '', toastSuccess: false, toastTimer: null }
   },
   methods: {
     async send() {
@@ -63,6 +69,7 @@ export default {
         const data = await resp.json()
         if (!data.ok) throw new Error('telegram error')
         this.sent = true
+        this.showToast()
         this.name = this.email = this.messenger = this.message = ''
       } catch (e) {
         this.error = e.message || 'error'
@@ -70,6 +77,11 @@ export default {
         this.loading = false
       }
     },
+    showToast(){
+      this.toastSuccess = true
+      clearTimeout(this.toastTimer)
+      this.toastTimer = setTimeout(()=>{ this.toastSuccess = false }, 4000)
+    }
   },
 }
 </script>
@@ -110,5 +122,15 @@ textarea{resize:vertical;min-height:140px}
 
 @media (prefers-reduced-motion: reduce){
   .send-btn{transition:none}
+}
+
+/* Toast styles */
+.toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#14b45c,#0a6e2c);color:#fff;padding:14px 22px;border-radius:14px;display:flex;align-items:center;gap:10px;font-size:.95rem;font-weight:500;box-shadow:0 10px 28px -10px rgba(0,0,0,0.35),0 2px 8px rgba(0,0,0,0.25);z-index:1000}
+.toast .icon{font-size:1.1rem;line-height:1}
+.toast-fade-enter-active,.toast-fade-leave-active{transition:opacity .45s,transform .45s}
+.toast-fade-enter-from,.toast-fade-leave-to{opacity:0;transform:translate(-50%,-12px)}
+@media (max-width:600px){
+  .toast{width:calc(100% - 32px);left:16px;right:16px;transform:none}
+  .toast-fade-enter-from,.toast-fade-leave-to{transform:translateY(-12px)}
 }
 </style>
