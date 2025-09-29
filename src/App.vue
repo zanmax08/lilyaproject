@@ -3,7 +3,9 @@
     <SiteHeader :mobileOpen="showMobile" @toggle-mobile="showMobile = !showMobile" @close-mobile="showMobile = false" />
 
     <main class="content-wrap">
-      <router-view />
+      <transition name="page-fade" mode="out-in">
+        <router-view />
+      </transition>
     </main>
 
     <footer class="site-footer">

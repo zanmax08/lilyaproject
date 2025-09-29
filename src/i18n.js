@@ -21,15 +21,28 @@ export function setLang(v) {
   }
 }
 
-export function t(path) {
-  const l = lang.value || 'en'
+// Core translation lookup. Supports nested paths and returns primitive / object / array.
+export function t(path, def) {
+  const l = lang.value in messages ? lang.value : 'en'
+  if (!path) return def || ''
   const parts = path.split('.')
-  let out = messages[l]
-  for (const p of parts) {
-    if (!out) return path
-    out = out[p]
+  let ctx = messages[l]
+  for (const seg of parts) {
+    if (ctx && Object.prototype.hasOwnProperty.call(ctx, seg)) {
+      ctx = ctx[seg]
+    } else {
+      return def !== undefined ? def : path
+    }
   }
-  return out || path
+  return ctx
+}
+
+// Convenience: if value is array/object we don't stringify—component decides.
+// For simple text with potential HTML tags allowed explicitly.
+export function tHtml(path, def){
+  const val = t(path, def)
+  if (typeof val === 'string') return val
+  return def || ''
 }
 
 export default messages

@@ -18,6 +18,33 @@ body{
 	-moz-osx-font-smoothing:grayscale;
 }
 
+/* ================= Animations: utilities & tokens ================= */
+/* Base reveal initial state */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.22,.61,.36,1),transform .9s cubic-bezier(.22,.61,.36,1)}
+.reveal[data-reveal="up"]{transform:translateY(46px)}
+.reveal[data-reveal="fade"]{transform:translateY(0)}
+.reveal[data-reveal="left"]{transform:translate(-40px,0)}
+.reveal[data-reveal="right"]{transform:translate(40px,0)}
+.reveal.is-visible{opacity:1;transform:translate3d(0,0,0)}
+/* Stagger helper using data attribute */
+.reveal[data-delay]{transition-delay:var(--reveal-delay,0s)}
+
+/* Page transition */
+.page-fade-enter-active,.page-fade-leave-active{transition:opacity .45s ease}
+.page-fade-enter-from,.page-fade-leave-to{opacity:0}
+
+/* Subtle hover unification */
+.hover-pop{transition:transform .45s cubic-bezier(.16,.8,.3,1),box-shadow .45s}
+.hover-pop:hover,.hover-pop:focus-visible{transform:translateY(-4px);box-shadow:0 10px 24px -8px rgba(0,0,0,.22)}
+.hover-pop:active{transform:translateY(-1px)}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1!important;transform:none!important;transition:none!important}
+  .hover-pop{transition:none}
+  .page-fade-enter-active,.page-fade-leave-active{transition:none}
+}
+
 /* container: full width, no side padding */
 #app{max-width:none;width:100%;margin:0;padding:0;display:flex;flex-direction:column;min-height:100vh}
 

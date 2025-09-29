@@ -22,4 +22,19 @@
     "cta": "Contactarme"
   }
   ,"ui": { "toggle_menu": "Abrir menú", "logo_alt": "Lilya Creates" }
+  ,"homeHero": {
+    "title_line1": "Liliia | Kids UGC",
+    "title_line2": "Mentora de mamás",
+    "subtitle": "y Home Creator",
+    "cta_portfolio": "VER PORTAFOLIO"
+  },
+  "intro": {
+    "heading": "Hola soy <strong>Liliia</strong> — experta<br/>en contenido viral",
+    "paragraphs": [
+      "— UGC Kids. La primera experta en contenido para marcas infantiles.",
+      "— Creo videos que venden para marcas.",
+      "<strong>5M+ vistas.</strong> Crecimiento orgánico para marcas.",
+      "— UGC Kids — Ayudando a las mamás a ganar con contenido."
+    ]
+  }
 }

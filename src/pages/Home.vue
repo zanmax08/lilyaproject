@@ -1,15 +1,15 @@
 <template>
   <div class="home">
-    <section class="hero hero-pink hero-bg">
+    <section class="hero hero-pink hero-bg" v-reveal:fade>
       <div class="hero-inner with-photo">
-        <div class="hero-left">
-          <h1 class="hero-title">Liliia | Kids UGC<br/>Mom Mentor</h1>
-          <h3 class="hero-sub">&amp; Home Creator</h3>
-          <div class="hero-cta">
-            <router-link to="/portfolio" class="btn large"><span>VIEW PORTFOLIO</span></router-link>
+        <div class="hero-left" v-reveal="{mode:'left',delay:80}">
+          <h1 class="hero-title" v-html="t('homeHero.title_line1') + '<br/>' + t('homeHero.title_line2')" v-reveal="{mode:'up',delay:140}"></h1>
+          <h3 class="hero-sub" v-html="t('homeHero.subtitle')" v-reveal="{mode:'up',delay:220}"></h3>
+          <div class="hero-cta" v-reveal="{mode:'up',delay:320}">
+            <router-link to="/portfolio" class="btn large hover-pop"><span>{{ t('homeHero.cta_portfolio') }}</span></router-link>
           </div>
         </div>
-        <div class="hero-photo-arch">
+        <div class="hero-photo-arch" v-reveal="{mode:'right',delay:160}">
           <div class="arch-frame big">
             <div class="arch-inner">
               <img :src="liliaPhoto" alt="Liliia" />
@@ -21,56 +21,43 @@
     </section>
 
     <!-- Intro / Screens section (Hi I'm Liliia) -->
-    <section class="intro-screens">
+  <section class="intro-screens" v-reveal:fade>
       <div class="intro-inner">
         <div class="phones">
-          <div class="phone phone-left">
+          <div class="phone phone-left" v-reveal="{mode:'left',delay:80}">
             <img src="https://testugclilia.my.canva.site/_assets/media/c38a4d06143c391d54af44f1cf1fe7aa.jpg" alt="phone1"/>
           </div>
-          <div class="phone phone-right">
+          <div class="phone phone-right" v-reveal="{mode:'right',delay:160}">
             <img src="https://testugclilia.my.canva.site/_assets/media/04102cf21808b6cb0058c8d1b202bcb0.jpg" alt="phone2"/>
           </div>
         </div>
-        <div class="intro-text">
-          <h2>Hi I'm <strong>Liliia</strong> - viral<br/>content expert</h2>
+  <div class="intro-text" v-reveal="{mode:'up',delay:120}">
+          <h2 v-html="t('intro.heading')"></h2>
           <div class="intro-multiline">
-            <p>— UGC Kids. The first expert in content
-for child-focused brands.</p>
-
-            <p>— i create selling videos for
-brands.</p>
-
-            <p><strong>5M+ views.</strong>
-
-Organic
-growth for brands.</p>
-
-            <p>— UGC Kids — Helping moms earn with
-
-content.</p>
+            <p v-for="(p,i) in t('intro.paragraphs')" :key="i" v-html="p" v-reveal="{mode:'up',delay: (i*120)+100 }"></p>
           </div>
         </div>
       </div>
     </section>
     
     <!-- Specialties Section -->
-    <section class="specialties">
-      <h2 class="spec-heading">{{ t('specialties.heading') }}</h2>
+  <section class="specialties" v-reveal:fade>
+  <h2 class="spec-heading" v-reveal="{mode:'up',delay:80}">{{ t('specialties.heading') }}</h2>
       <div class="spec-features">
-        <div class="spec-feature" v-for="(f,i) in t('specialties.features')" :key="i">
+  <div class="spec-feature" v-for="(f,i) in t('specialties.features')" :key="i" v-reveal="{mode:'up',delay:(i*140)+60}">
           <h3 class="spec-ft-title">{{ f.title }}</h3>
           <p class="spec-ft-desc">{{ f.desc }}</p>
         </div>
       </div>
       <div class="spec-main">
-        <div class="spec-photo-wrap">
+  <div class="spec-photo-wrap" v-reveal="{mode:'left',delay:120}">
           <div class="spec-photo-circle">
             <img :src="liliaPhoto" alt="" />
           </div>
         </div>
-        <div class="spec-text-block">
-          <p class="spec-lead">{{ t('specialties.lead') }}</p>
-          <router-link to="/contact" class="btn spec-cta">{{ t('specialties.cta') }}</router-link>
+        <div class="spec-text-block" v-reveal="{mode:'right',delay:180}">
+          <p class="spec-lead" v-reveal="{mode:'up',delay:240}">{{ t('specialties.lead') }}</p>
+          <router-link to="/contact" class="btn spec-cta hover-pop" v-reveal="{mode:'up',delay:340}">{{ t('specialties.cta') }}</router-link>
         </div>
       </div>
     </section>
@@ -88,7 +75,11 @@ export default {
   },
   computed: {
     t() { return t },
-    lead() { return t('hero.lead') }
+    lead() { return t('hero.lead') },
+    specHeading(){ return t('specialties.heading') },
+    specFeatures(){ return t('specialties.features') || [] },
+    specLead(){ return t('specialties.lead') },
+    specCta(){ return t('specialties.cta') }
   }
 }
 </script>

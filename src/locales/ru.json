@@ -30,4 +30,19 @@
     "cta": "Связаться"
   }
   ,"ui": { "toggle_menu": "Открыть меню", "logo_alt": "Lilya Creates" }
+  ,"homeHero": {
+    "title_line1": "Лилия | Kids UGC",
+    "title_line2": "Ментор мам",
+    "subtitle": "и Home Creator",
+    "cta_portfolio": "ПОРТФОЛИО"
+  },
+  "intro": {
+    "heading": "Привет, я <strong>Лилия</strong> — эксперт<br/>по вирусному контенту",
+    "paragraphs": [
+      "— UGC Kids. Первый эксперт по контенту для детских брендов.",
+      "— Я создаю продающие видео для брендов.",
+      "<strong>5M+ просмотров.</strong> Органический рост для брендов.",
+      "— UGC Kids — помогаю мамам зарабатывать на контенте."
+    ]
+  }
 }
