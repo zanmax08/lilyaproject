@@ -138,7 +138,9 @@ export default {
 @media (max-width:860px){.vx-header{grid-template-columns:1fr;gap:1.25rem}}
 .vx-title{margin:0;font-size:clamp(2rem,4.4vw,2.6rem);line-height:1.06;letter-spacing:.4px;font-weight:650;display:flex;flex-wrap:wrap;gap:.5ch}
 .vx-title span{font-weight:300;opacity:.85}
-.vx-text{background:rgba(255,255,255,.55);padding:1rem 1.1rem;border-radius:12px;font-size:.9rem;line-height:1.45;border:1px solid #e7dace;backdrop-filter:blur(4px);box-shadow:0 6px 24px -10px rgba(0,0,0,.14);max-width:640px}
+.vx-text{background:#fff;padding:.7rem 1rem .78rem;border-radius:38px;font-size:.9rem;line-height:1.38;border:1px solid #e5d8cf;box-shadow:0 3px 14px -6px rgba(0,0,0,.08);display:inline-block;width:-moz-fit-content;width:fit-content;max-width:100%;margin:0 0 0 0}
+@media (min-width:861px){.vx-text{margin-left:0;margin-right:auto}}
+@media (max-width:860px){.vx-text{display:block;width:100%;border-radius:22px;margin:0}}
 .vx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:1.4rem}
 @media (min-width:640px){.vx-grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}}
 .vx-item .thumb{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:9/16;background:linear-gradient(180deg,#c68fc1,#d6b0d2);box-shadow:0 6px 20px -8px rgba(0,0,0,.22);transition:transform .55s cubic-bezier(.16,.8,.3,1),box-shadow .55s}
