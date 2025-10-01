@@ -40,3 +40,15 @@ export function buildFolderVideos(){
 export function resolveFolderByKey(key){
   return folderDefs.find(f => f.key === key) || null
 }
+
+// Flatten all videos (for random samples on main page)
+export function getAllVideosFlat(){
+  const map = buildFolderVideos()
+  const out = []
+  for(const key in map){
+    for(const v of map[key]){
+      out.push({ ...v, folderKey: key })
+    }
+  }
+  return out
+}

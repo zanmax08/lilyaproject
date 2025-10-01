@@ -18,8 +18,21 @@ import PortfolioFolders from '@/components/portfolio/PortfolioFolders.vue'
 import PortfolioCTA from '@/components/portfolio/PortfolioCTA.vue'
 // FolderVideos now shown on a separate route
 
-// simple static sample thumbnails (reuse placeholder path if needed)
-const videoItems = Array.from({ length: 4 }).map((_, i) => ({ thumb: '/glscreen.png', alt: 'video ' + (i + 1) }))
+// dynamic random sample of 4 videos across all folders
+import { getAllVideosFlat } from '@/utils/portfolioData'
+
+function pickRandomVideos(count){
+  const all = getAllVideosFlat()
+  if(all.length <= count) return all
+  // Fisher–Yates partial shuffle for first count
+  for(let i=0;i<count;i++){
+    const r = i + Math.floor(Math.random() * (all.length - i))
+    ;[all[i], all[r]] = [all[r], all[i]]
+  }
+  return all.slice(0,count)
+}
+
+const initialRandom = pickRandomVideos(4)
 
 export default {
   name: 'PortfolioPage',
@@ -35,6 +48,14 @@ export default {
     function onSelectFolder(f){
       router.push({ name:'PortfolioFolder', params:{ key:f.key } })
     }
+    // build translated alt text on the fly via computed mapping for current language
+    const videoItems = computed(()=>{
+      const pattern = t('portfolioUI?.videoAltPattern','Video {index}') || t('portfolioUI.videoAltPattern','Video {index}')
+      return initialRandom.map((v,i)=>({
+        ...v,
+        alt: pattern.replace('{label}', t('portfolioPage.examples.video','Видео')).replace('{index}', v.index || (i+1))
+      }))
+    })
     return { videoItems, folderItems, onSelectFolder, foldersAnchor }
   }
 }
