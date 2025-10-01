@@ -33,6 +33,20 @@
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
+  # Posters (static extracted thumbnails)
+  for = "/posters/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  # Video files: allow long cache but permit future rev with filename hashing
+  for = "/videos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000" # 30 days
+    Accept-Ranges = "bytes"
+    Timing-Allow-Origin = "*"
+
+[[headers]]
   for = "/index.html"
   [headers.values]
     Cache-Control = "no-cache"

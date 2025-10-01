@@ -12,7 +12,7 @@
           <div v-if="!isActive(item)" class="thumb" :data-src="item.src" :ref="el => thumbEls[i] = el" @click="playInline(item)">
             <img :src="displayThumb(item)" :alt="item.alt || (t('portfolioPage.examples.video') + ' ' + (i+1))" :class="{ placeholder: !hasPreview(item), 'is-hovering': hoverItem && hoverItem.src===item.src }" loading="lazy" decoding="async" :fetchpriority="i<2 ? 'high' : 'low'" />
             <div v-if="hoverItem && hoverItem.src===item.src" class="hover-preview" aria-hidden="true">
-              <video :src="item.src" muted playsinline autoplay loop preload="metadata"></video>
+              <video :src="item.mini || item.src" muted playsinline autoplay loop preload="metadata"></video>
             </div>
             <button class="play" @click.stop="playInline(item)" :aria-label="t('portfolioPage.examples.play')">▶</button>
           </div>
@@ -47,7 +47,7 @@ export default {
 
   const q = []
   let running = 0
-    const MAX = 2
+  const MAX = window.matchMedia('(max-width:640px)').matches ? 1 : 2
     function step(){
       if(running>=MAX) return
       const job = q.shift(); if(!job) return
@@ -79,14 +79,14 @@ export default {
         try {
           const w = video.videoWidth, h = video.videoHeight
           if(!w||!h) throw new Error('no dims')
-          const maxW = 260
+          const maxW = 220
           let dw=w, dh=h
           if(w>maxW){ const r=maxW/w; dw=Math.round(w*r); dh=Math.round(h*r) }
           const canvas=document.createElement('canvas')
           canvas.width=dw; canvas.height=dh
           const ctx=canvas.getContext('2d')
           ctx.drawImage(video,0,0,dw,dh)
-          const data=canvas.toDataURL('image/jpeg',0.65)
+          const data=canvas.toDataURL('image/jpeg',0.55)
           previews.value = { ...previews.value, [src]: data }
         }catch(e){}
         cleanup()
@@ -106,24 +106,30 @@ export default {
         localItems.value.forEach(i=>generate(i.src))
         return
       }
-      observer.value = new IntersectionObserver(entries => {
-        entries.forEach(e=>{
-          if(e.isIntersecting){
-            const src = e.target.getAttribute('data-src')
-            generate(src)
-            observer.value.unobserve(e.target)
-          }
-        })
-      }, { rootMargin: '120px 0px' })
-      nextTick(()=>{ thumbEls.value.forEach(el=>{ if(el) observer.value.observe(el) }) })
+      const init = () => {
+        observer.value = new IntersectionObserver(entries => {
+          entries.forEach(e=>{
+            if(e.isIntersecting){
+              const src = e.target.getAttribute('data-src')
+              generate(src)
+              observer.value.unobserve(e.target)
+            }
+          })
+        }, { rootMargin: '40px 0px' })
+        nextTick(()=>{ thumbEls.value.forEach(el=>{ if(el) observer.value.observe(el) }) })
+      }
+      if('requestIdleCallback' in window){ requestIdleCallback(init, { timeout:1100 }) } else { setTimeout(init,260) }
     }
 
     function isActive(item){ return active.value && active.value.src === item.src }
     function playInline(item){ active.value = item; hoverItem.value = null }
     function closeActive(){ active.value = null }
+    let hoverReady = false
+    setTimeout(()=>hoverReady=true, 1200)
     function startHover(item,i,e){
       if(isActive(item)) return
       if(window.matchMedia('(hover: none)').matches) return
+      if(!hoverReady) return
       clearTimeout(hoverTimer)
       hoverTimer = setTimeout(()=>{ hoverItem.value = item },170)
     }

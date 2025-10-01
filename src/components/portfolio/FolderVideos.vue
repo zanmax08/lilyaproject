@@ -19,7 +19,7 @@
           >
             <img :src="previewSrc(v)" :alt="altFor(v,i)" :class="{ placeholder: !hasGenerated(v), 'is-hovering': hoverVideo && hoverVideo.src===v.src }" loading="lazy" decoding="async" fetchpriority="low" />
             <div v-if="hoverVideo && hoverVideo.src===v.src" class="hover-preview" :aria-hidden="true">
-              <video :src="v.src" muted playsinline autoplay loop preload="metadata"></video>
+              <video :src="v.mini || v.src" muted playsinline autoplay loop preload="metadata"></video>
             </div>
             <button class="play" @click.stop="openVideo(v)" :aria-label="t('portfolioUI.play','Play')">▶</button>
           </div>
@@ -63,8 +63,13 @@ export default {
       activeVideo.value = null
     }
     function isActive(v){ return activeVideo.value && activeVideo.value.src === v.src }
+    let hoverEnabled = false
+    // enable hover previews after initial settling
+    setTimeout(()=>{ hoverEnabled = true }, 1200)
+
     function startHover(v,i,evt){
       if(isActive(v)) return
+      if(!hoverEnabled) return
       if(window.matchMedia('(hover: none)').matches) return // skip touch devices
       clearTimeout(hoverTimer)
       hoverTimer = setTimeout(()=>{ hoverVideo.value = v }, 180)
@@ -111,9 +116,9 @@ export default {
       })
     }
 
-    const queue = []
-    let activeCount = 0
-    const MAX_CONCURRENT = 2
+  const queue = []
+  let activeCount = 0
+  const MAX_CONCURRENT = window.matchMedia('(max-width:640px)').matches ? 1 : 2
 
     function runNext(){
       if(activeCount >= MAX_CONCURRENT) return
@@ -148,14 +153,14 @@ export default {
         try {
           const w = video.videoWidth, h = video.videoHeight
             if(!w || !h) throw new Error('no dims')
-          const maxW = 360
+          const maxW = 260 // reduce thumbnail width for faster generation
           let dw = w, dh = h
           if(w > maxW){ const r = maxW / w; dw = Math.round(w*r); dh = Math.round(h*r) }
           const canvas = document.createElement('canvas')
           canvas.width = dw; canvas.height = dh
           const ctx = canvas.getContext('2d')
           ctx.drawImage(video, 0, 0, dw, dh)
-          const data = canvas.toDataURL('image/jpeg', 0.65)
+          const data = canvas.toDataURL('image/jpeg', 0.55)
           generatedThumbs.value = { ...generatedThumbs.value, [src]: data }
           try { localStorage.setItem('pv:'+src, data) } catch(e){}
         } catch(e){}
@@ -179,18 +184,21 @@ export default {
         props.videos.forEach(v=>generatePreview(v.src))
         return
       }
-      observer.value = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if(entry.isIntersecting){
-            const src = entry.target.getAttribute('data-src')
-            generatePreview(src)
-            observer.value.unobserve(entry.target)
-          }
+      const init = () => {
+        observer.value = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if(entry.isIntersecting){
+              const src = entry.target.getAttribute('data-src')
+              generatePreview(src)
+              observer.value.unobserve(entry.target)
+            }
+          })
+        }, { rootMargin: '40px 0px' })
+        nextTick(()=>{
+          itemEls.value.forEach(el=>{ if(el) observer.value.observe(el) })
         })
-      }, { rootMargin: '140px 0px' })
-      nextTick(()=>{
-        itemEls.value.forEach(el=>{ if(el) observer.value.observe(el) })
-      })
+      }
+      if('requestIdleCallback' in window){ requestIdleCallback(init, { timeout: 1200 }) } else { setTimeout(init, 300) }
     }
 
     onMounted(()=>{
