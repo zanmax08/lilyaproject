@@ -5,6 +5,9 @@ import es from './locales/es.json'
 
 const messages = { en, ru, es }
 
+// simple in-memory cache for resolved translation keys
+let _cache = {}
+
 // reactive language ref shared across the app
 export const lang = ref(localStorage.getItem('site_lang') || 'en')
 
@@ -12,6 +15,8 @@ export function setLang(v) {
   lang.value = v
   localStorage.setItem('site_lang', v)
   document.documentElement.lang = v
+  // clear translation cache on language change
+  _cache = {}
   // set document title if provided in locales
   try {
     const title = messages[v] && messages[v].meta && messages[v].meta.title
@@ -25,15 +30,20 @@ export function setLang(v) {
 export function t(path, def) {
   const l = lang.value in messages ? lang.value : 'en'
   if (!path) return def || ''
+  const cacheKey = l + '::' + path
+  if (_cache[cacheKey] !== undefined) return _cache[cacheKey]
   const parts = path.split('.')
   let ctx = messages[l]
   for (const seg of parts) {
     if (ctx && Object.prototype.hasOwnProperty.call(ctx, seg)) {
       ctx = ctx[seg]
     } else {
-      return def !== undefined ? def : path
+      const miss = def !== undefined ? def : path
+      _cache[cacheKey] = miss
+      return miss
     }
   }
+  _cache[cacheKey] = ctx
   return ctx
 }
 

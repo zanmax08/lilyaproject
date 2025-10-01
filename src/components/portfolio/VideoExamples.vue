@@ -10,14 +10,14 @@
       <div class="vx-grid" v-reveal="{mode:'up',delay:160}">
         <div v-for="(item,i) in localItems" :key="i" class="vx-item" @mouseenter="startHover(item,i,$event)" @mouseleave="stopHover(item,i,$event)">
           <div v-if="!isActive(item)" class="thumb" :data-src="item.src" :ref="el => thumbEls[i] = el" @click="playInline(item)">
-            <img :src="displayThumb(item)" :alt="item.alt || (t('portfolioPage.examples.video') + ' ' + (i+1))" :class="{ placeholder: !hasPreview(item), 'is-hovering': hoverItem && hoverItem.src===item.src }" loading="lazy" />
+            <img :src="displayThumb(item)" :alt="item.alt || (t('portfolioPage.examples.video') + ' ' + (i+1))" :class="{ placeholder: !hasPreview(item), 'is-hovering': hoverItem && hoverItem.src===item.src }" loading="lazy" decoding="async" :fetchpriority="i<2 ? 'high' : 'low'" />
             <div v-if="hoverItem && hoverItem.src===item.src" class="hover-preview" aria-hidden="true">
-              <video :src="item.src" muted playsinline autoplay loop></video>
+              <video :src="item.src" muted playsinline autoplay loop preload="metadata"></video>
             </div>
             <button class="play" @click.stop="playInline(item)" :aria-label="t('portfolioPage.examples.play')">▶</button>
           </div>
           <div v-else class="inline-player">
-            <video :src="item.src" controls autoplay playsinline @ended="closeActive" />
+            <video :src="item.src" controls autoplay playsinline preload="metadata" @ended="closeActive" />
             <button class="inline-close" @click="closeActive" :aria-label="t('portfolioUI.back','Back')">×</button>
           </div>
         </div>
@@ -45,8 +45,23 @@ export default {
     function hasPreview(item){ return !!previews.value[item.src] }
     function displayThumb(item){ return previews.value[item.src] || item.thumb || '/glscreen.png' }
 
+  const q = []
+  let running = 0
+    const MAX = 2
+    function step(){
+      if(running>=MAX) return
+      const job = q.shift(); if(!job) return
+      running++
+      job(()=>{ running--; step() })
+    }
+    function schedule(job){
+      q.push(job)
+      requestIdleCallback ? requestIdleCallback(()=>step(), { timeout:1600 }) : setTimeout(step,40)
+    }
+
     function generate(src){
       if(previews.value[src]) return
+      schedule((done)=>{
       const video = document.createElement('video')
       video.src = src
       video.muted = true
@@ -56,6 +71,7 @@ export default {
         video.removeEventListener('loadeddata', onLoaded)
         video.removeEventListener('seeked', onSeeked)
         video.remove()
+        done()
       }
       function capture(){
         if(captured) return
@@ -82,6 +98,7 @@ export default {
       video.addEventListener('loadeddata', onLoaded)
       video.addEventListener('seeked', onSeeked)
       setTimeout(()=>capture(), 4000)
+    })
     }
 
     function setupObserver(){

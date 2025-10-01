@@ -8,5 +8,25 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, 'src')
     }
+  },
+  build: {
+    target: 'es2019',
+    sourcemap: false,
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('vue-router')) return 'router'
+            if (id.includes('vue')) return 'vue'
+            return 'vendor'
+          }
+        }
+      }
+    }
+  },
+  esbuild: {
+    drop: ['console', 'debugger'],
+    legalComments: 'none'
   }
 })

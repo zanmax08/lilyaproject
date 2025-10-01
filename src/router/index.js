@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../pages/Home.vue'
-import Portfolio from '../pages/Portfolio.vue'
-import Contact from '../pages/Contact.vue'
-import PortfolioFolder from '../pages/PortfolioFolder.vue'
+// Route-level code splitting via dynamic imports for smaller initial bundle
+const Home = () => import('../pages/Home.vue')
+const Portfolio = () => import('../pages/Portfolio.vue')
+const Contact = () => import('../pages/Contact.vue')
+const PortfolioFolder = () => import('../pages/PortfolioFolder.vue')
 
 const routes = [
   { path: '/', component: Home },

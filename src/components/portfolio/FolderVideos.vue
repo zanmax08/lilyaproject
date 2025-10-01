@@ -17,9 +17,9 @@
             role="button"
             :aria-label="t('portfolioUI.play','Play') + ' ' + altFor(v,i)"
           >
-            <img :src="previewSrc(v)" :alt="altFor(v,i)" :class="{ placeholder: !hasGenerated(v), 'is-hovering': hoverVideo && hoverVideo.src===v.src }" loading="lazy" />
+            <img :src="previewSrc(v)" :alt="altFor(v,i)" :class="{ placeholder: !hasGenerated(v), 'is-hovering': hoverVideo && hoverVideo.src===v.src }" loading="lazy" decoding="async" fetchpriority="low" />
             <div v-if="hoverVideo && hoverVideo.src===v.src" class="hover-preview" :aria-hidden="true">
-              <video :src="v.src" muted playsinline autoplay loop></video>
+              <video :src="v.src" muted playsinline autoplay loop preload="metadata"></video>
             </div>
             <button class="play" @click.stop="openVideo(v)" :aria-label="t('portfolioUI.play','Play')">▶</button>
           </div>
@@ -30,6 +30,7 @@
               controls
               autoplay
               playsinline
+              preload="metadata"
               @ended="closeVideo"
             ></video>
             <button class="inline-close" @click="closeVideo" :aria-label="t('portfolioUI.back','Back')">×</button>
@@ -110,8 +111,26 @@ export default {
       })
     }
 
+    const queue = []
+    let activeCount = 0
+    const MAX_CONCURRENT = 2
+
+    function runNext(){
+      if(activeCount >= MAX_CONCURRENT) return
+      const job = queue.shift()
+      if(!job) return
+      activeCount++
+      job(()=>{ activeCount--; runNext() })
+    }
+
+    function schedule(job){
+      queue.push(job)
+      requestIdleCallback ? requestIdleCallback(()=>runNext(), { timeout: 1800 }) : setTimeout(runNext, 50)
+    }
+
     function generatePreview(src){
       if(generatedThumbs.value[src]) return
+      schedule((done)=>{
       const video = document.createElement('video')
       video.src = src
       video.muted = true
@@ -121,6 +140,7 @@ export default {
         video.removeEventListener('loadeddata', onLoaded)
         video.removeEventListener('seeked', onSeeked)
         video.remove()
+        done()
       }
       function capture(){
         if(captured) return
@@ -151,6 +171,7 @@ export default {
       video.addEventListener('loadeddata', onLoaded)
       video.addEventListener('seeked', onSeeked)
       setTimeout(()=>capture(), 4500) // fallback
+    })
     }
 
     function setupObserver(){
