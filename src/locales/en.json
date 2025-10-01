@@ -8,7 +8,24 @@
   "hero": { "title": "UGC CREATOR & VIDEOMAKER", "lead": "I’m Lilya — I create high-quality UGC videos, reels and video ads. Based in the USA. Ready to collaborate.", "portfolio": "Portfolio", "contact": "Contact me" },
   "about": { "heading": "About me", "text": "My passion for video shooting and photography began as a hobby and has since evolved into my profession." },
   "portfolio": { "desc": "Selection of UGC videos, reels and promos.", "preview": "Video preview", "items": [] , "empty": "No portfolio items yet — this section is empty."},
-  "folders": [],
+  "folders": [
+    { "key": "mom", "label": "Mom & Daughter" },
+    { "key": "fashionMom", "label": "Fashion mom & daughter" },
+    { "key": "kids", "label": "Kids Toys" },
+    { "key": "beauty", "label": "Beauty" },
+    { "key": "food", "label": "Food & Beverages" },
+    { "key": "other", "label": "Other" }
+  ],
+  "portfolioUI": {
+    "moreExamplesTop": "MORE",
+    "moreExamplesBottom": "EXAMPLES",
+    "moreFoldersTop": "MORE",
+    "moreFoldersBottom": "FOLDERS",
+    "play": "Play",
+    "back": "Back",
+    "videoAltPattern": "{label} video {index}",
+    "notFound": "Folder not found"
+  },
   "contact": {
     "heading": "Contact me",
     "intro": "Interested in a collaboration? Send me a short brief.",

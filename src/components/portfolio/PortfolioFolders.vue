@@ -18,11 +18,10 @@ export default {
   name:'PortfolioFolders',
   props:{
     folders:{ type:Array, default:()=>[] },
-    headingTop:{ type:String, default:'MORE' },
-    headingBottom:{ type:String, default:'EXAMPLES' }
+    headingTop:{ type:String, default:'' },
+    headingBottom:{ type:String, default:'' }
   },
-  setup(){
-    // Public asset served at root; direct path is enough.
+  setup(props){
     const folderIcon = '/folder.PNG'
     return { folderIcon }
   }
@@ -31,7 +30,7 @@ export default {
 <style scoped>
 .portfolio-folders{--pad:clamp(1.25rem,4vw,3.2rem);padding:calc(var(--pad)*0.85) var(--pad) calc(var(--pad)*2.2);background:
   radial-gradient(circle at 55% 0%,rgba(180,130,255,.20),rgba(255,255,255,0) 68%),
-  linear-gradient(180deg,#fbf8f6 0%,#fefefe 100%)}
+  linear-gradient(180deg,#fbf8f6 0%,#fefefe 100%);border-radius:var(--radius-xl);overflow:hidden}
 .pf-inner{max-width:1140px;margin:0 auto}
 .pf-header{text-align:center;margin:-.35rem 0 1.75rem}
 .pf-title{margin:0;font-size:clamp(1.9rem,4.2vw,2.75rem);line-height:1.04;font-weight:750;letter-spacing:.5px}

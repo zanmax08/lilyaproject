@@ -8,7 +8,24 @@
   "hero": { "title": "UGC CREATOR & VIDEOMAKER", "lead": "Soy Lilya — creo vídeos UGC, reels y anuncios creativos. Lista para colaborar.", "portfolio": "Portafolio", "contact": "Contactarme" },
   "about": { "heading": "Sobre mí", "text": "Mi pasión por la filmación y la fotografía comenzó como un hobby y se convirtió en mi profesión." },
   "portfolio": { "desc": "Selección de vídeos UGC, reels y promos.", "preview": "Vista previa de vídeo", "items": [], "empty": "No hay elementos en el portafolio todavía." },
-  "folders": [],
+  "folders": [
+    { "key": "mom", "label": "Mamá e hija" },
+    { "key": "fashionMom", "label": "Fashion mamá e hija" },
+    { "key": "kids", "label": "Juguetes infantiles" },
+    { "key": "beauty", "label": "Belleza" },
+    { "key": "food", "label": "Alimentos y bebidas" },
+    { "key": "other", "label": "Otros" }
+  ],
+  "portfolioUI": {
+    "moreExamplesTop": "MÁS",
+    "moreExamplesBottom": "EJEMPLOS",
+    "moreFoldersTop": "OTRAS",
+    "moreFoldersBottom": "CARPETAS",
+    "play": "Ver",
+    "back": "Atrás",
+    "videoAltPattern": "{label} vídeo {index}",
+    "notFound": "Carpeta no encontrada"
+  },
   "contact": {
     "heading": "Contáctame",
     "intro": "¿Interesado en colaborar? Envíame un breve brief.",

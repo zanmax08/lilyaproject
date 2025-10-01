@@ -16,7 +16,24 @@
   ], "portfolio": "Портфолио", "contact": "Связаться" },
   "about": { "heading": "Обо мне", "text": "Моя страсть к видеосъёмке и фотографии началась как хобби и переросла в профессию." },
   "portfolio": { "desc": "Подборка UGC-видео, рилсов и промо.", "preview": "Превью видео", "items": [], "empty": "В этом разделе пока нет работ." },
-  "folders": [],
+  "folders": [
+    { "key": "mom", "label": "Мама и дочка" },
+    { "key": "fashionMom", "label": "Fashion мама и дочка" },
+    { "key": "kids", "label": "Детские игрушки" },
+    { "key": "beauty", "label": "Бьюти" },
+    { "key": "food", "label": "Еда и напитки" },
+    { "key": "other", "label": "Другое" }
+  ],
+  "portfolioUI": {
+    "moreExamplesTop": "БОЛЬШЕ",
+    "moreExamplesBottom": "ПРИМЕРОВ",
+    "moreFoldersTop": "ДРУГИЕ",
+    "moreFoldersBottom": "ПАПКИ",
+    "play": "Смотреть",
+    "back": "Назад",
+    "videoAltPattern": "{label} видео {index}",
+    "notFound": "Папка не найдена"
+  },
   "contact": {
     "heading": "Связаться",
     "intro": "Заинтересованы в сотрудничестве? Пришлите короткий бриф.",

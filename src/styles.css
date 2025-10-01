@@ -6,6 +6,13 @@
 	--header-bg:#f4cfc7; /* fallback solid color */
 	--header-gradient: linear-gradient(90deg,#d7a3ea 0%, #f3c0d0 50%, #f7d6c8 100%);
 	--accent-2:#2563eb;
+  /* Radius scale */
+  --radius-xs:4px;
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-lg:22px;
+  --radius-xl:32px;
+  --radius-card:28px;
 }
 
 html,body{height:100%}
@@ -51,7 +58,7 @@ body{
 a{color:var(--accent-2);text-decoration:none}
 
 /* hero */
-.hero{display:flex;flex-direction:column;align-items:flex-start;gap:.8rem;padding:3rem 2rem;border-radius:12px;background:linear-gradient(180deg,#f8fafc 0%, #fff 100%)}
+.hero{display:flex;flex-direction:column;align-items:flex-start;gap:.8rem;padding:3rem 2rem;border-radius:var(--radius-lg);background:linear-gradient(180deg,#f8fafc 0%, #fff 100%)}
 .hero h2{font-size:2.25rem;line-height:1.02;margin:0;font-weight:700}
 .hero .lead{color:var(--muted);font-size:1.05rem;max-width:70ch}
 .hero-cta{margin-top:1rem}
@@ -63,7 +70,7 @@ a{color:var(--accent-2);text-decoration:none}
 
 /* portfolio grid */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
-.card{background:#fff;padding:1rem;border:1px solid #e6edf3;border-radius:8px;box-shadow:0 1px 0 rgba(2,6,23,0.03)}
+.card{background:#fff;padding:1rem;border:1px solid #e6edf3;border-radius:var(--radius-md);box-shadow:0 1px 0 rgba(2,6,23,0.03)}
 .card h3{margin:.25rem 0}
 .card p{color:var(--muted);margin:0}
 
@@ -71,7 +78,7 @@ a{color:var(--accent-2);text-decoration:none}
 form{max-width:680px}
 form div{margin-bottom:.75rem}
 label{display:block;font-weight:600;margin-bottom:.25rem}
-input,textarea{width:100%;padding:.75rem;border-radius:8px;border:1px solid #e6edf3;background:#fff}
+input,textarea{width:100%;padding:.75rem;border-radius:var(--radius-sm);border:1px solid #e6edf3;background:#fff}
 button[type="submit"]{background:var(--accent);color:#fff;padding:.7rem 1rem;border-radius:8px;border:0}
 
 @media (max-width:640px){

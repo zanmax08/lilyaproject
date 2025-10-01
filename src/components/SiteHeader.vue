@@ -2,7 +2,9 @@
   <header class="site-header" v-reveal:fade>
     <div class="header-inner">
       <div class="brand" v-reveal="{mode:'left',delay:60}">
-        <img src="/logo.png" :alt="t('ui.logo_alt')" class="logo hover-pop" onerror="this.onerror=null;this.src='/logo-placeholder.svg'" />
+        <router-link to="/" class="logo-link" aria-label="Go to home">
+          <img src="/logo.png" :alt="t('ui.logo_alt')" class="logo" onerror="this.onerror=null;this.src='/logo-placeholder.svg'" />
+        </router-link>
         <div class="tag" v-reveal="{mode:'up',delay:160}">{{ t('hero.title') }}</div>
       </div>
 
@@ -19,16 +21,16 @@
       </button>
       <div class="right-cluster" v-reveal="{mode:'right',delay:200}">
         <div class="social-links" aria-label="social links">
-          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="icon-img hover-pop">
+          <a href="https://www.instagram.com/lilyacreates?igsh=NHk5bGVuZGM2ZnA%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram" class="icon-img hover-pop">
             <img src="/inst.png" alt="Instagram" loading="lazy" />
           </a>
-          <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok" class="icon-img hover-pop">
+          <a href="https://www.tiktok.com/@lilyacreates?_t=ZT-90C6nnZuP4Y&_r=1" target="_blank" rel="noopener" aria-label="TikTok" class="icon-img hover-pop">
             <img src="/tt.png" alt="TikTok" loading="lazy" />
           </a>
-          <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube" class="icon-img hover-pop">
+          <a href="https://youtube.com/@lilyacreates?si=-WiNnQbngE96mzoU" target="_blank" rel="noopener" aria-label="YouTube" class="icon-img hover-pop">
             <img src="/yt.png" alt="YouTube" loading="lazy" />
           </a>
-          <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" class="icon-img hover-pop">
+          <a href="https://www.facebook.com/share/1787UTd9yF/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook" class="icon-img hover-pop">
             <img src="/fb.png" alt="Facebook" loading="lazy" />
           </a>
         </div>
@@ -86,6 +88,8 @@ export default {
 .social-links .icon-img:active{transform:translateY(-1px)}
 .social-links .icon-img img{display:block;width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply}
 .logo{height:64px;display:block}
+.logo-link{display:block;line-height:0;text-decoration:none;}
+.logo-link:focus-visible{outline:2px solid #fff;outline-offset:4px;border-radius:8px}
 .tag{color:rgba(255,255,255,0.85);font-size:0.9rem}
 .main-nav{color:rgba(255,255,255,0.9)}
 .main-nav a{color:inherit;margin:0 .5rem;text-decoration:none}
