@@ -2,29 +2,45 @@
   <section class="folder-videos" v-reveal>
     <div class="fv-inner">
       <div class="fv-bar">
-  <button class="back" @click="goBack" :aria-label="t('portfolioUI.back','Back')">←</button>
-  <h2 class="fv-title">{{ translatedLabel }}</h2>
+        <button class="back" @click="goBack" :aria-label="t('portfolioUI.back','Back')">←</button>
+        <h2 class="fv-title">{{ translatedLabel }}</h2>
       </div>
       <div class="fv-grid">
-        <div v-for="(v,i) in videos" :key="i" class="fv-item">
-          <div class="thumb" @click="openVideo(v)" role="button" :aria-label="t('portfolioUI.play','Play') + ' ' + altFor(v,i)">
-            <img :src="v.thumb" :alt="altFor(v,i)" loading="lazy" />
+     <div v-for="(v,i) in videos" :key="i" class="fv-item"
+       @mouseenter="startHover(v,i,$event)" @mouseleave="stopHover(v,i,$event)">
+          <div
+            v-if="!isActive(v)"
+            class="thumb"
+            :data-src="v.src"
+            :ref="el => itemEls[i] = el"
+            @click="openVideo(v)"
+            role="button"
+            :aria-label="t('portfolioUI.play','Play') + ' ' + altFor(v,i)"
+          >
+            <img :src="previewSrc(v)" :alt="altFor(v,i)" :class="{ placeholder: !hasGenerated(v), 'is-hovering': hoverVideo && hoverVideo.src===v.src }" loading="lazy" />
+            <div v-if="hoverVideo && hoverVideo.src===v.src" class="hover-preview" :aria-hidden="true">
+              <video :src="v.src" muted playsinline autoplay loop></video>
+            </div>
             <button class="play" @click.stop="openVideo(v)" :aria-label="t('portfolioUI.play','Play')">▶</button>
           </div>
+          <div v-else class="inline-player">
+            <video
+              ref="activeEl"
+              :src="v.src"
+              controls
+              autoplay
+              playsinline
+              @ended="closeVideo"
+            ></video>
+            <button class="inline-close" @click="closeVideo" :aria-label="t('portfolioUI.back','Back')">×</button>
+          </div>
         </div>
-      </div>
-    </div>
-
-    <div v-if="activeVideo" class="video-modal" @click.self="closeVideo">
-      <div class="vm-content">
-        <button class="vm-close" @click="closeVideo" aria-label="Close video">×</button>
-        <video :src="activeVideo.src" controls autoplay playsinline></video>
       </div>
     </div>
   </section>
 </template>
 <script>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, nextTick, watch } from 'vue'
 import { t } from '@/i18n'
 import { useRouter } from 'vue-router'
 export default {
@@ -33,8 +49,32 @@ export default {
   setup(props, { emit }){
     const router = useRouter()
     const activeVideo = ref(null)
-    function openVideo(v){ activeVideo.value = v }
-    function closeVideo(){ activeVideo.value = null }
+    const generatedThumbs = ref({}) // src -> dataURL
+  const observer = ref(null)
+    const itemEls = ref([]) // element refs for thumbs
+  const hoverVideo = ref(null)
+  let hoverTimer = null
+
+    function openVideo(v){
+      activeVideo.value = v
+    }
+    function closeVideo(){
+      activeVideo.value = null
+    }
+    function isActive(v){ return activeVideo.value && activeVideo.value.src === v.src }
+    function startHover(v,i,evt){
+      if(isActive(v)) return
+      if(window.matchMedia('(hover: none)').matches) return // skip touch devices
+      clearTimeout(hoverTimer)
+      hoverTimer = setTimeout(()=>{ hoverVideo.value = v }, 180)
+    }
+    function stopHover(v,i,evt){
+      clearTimeout(hoverTimer)
+      hoverTimer = null
+      if(hoverVideo.value && hoverVideo.value.src === v.src){
+        hoverVideo.value = null
+      }
+    }
     const translatedLabel = computed(()=>{
       // find folder translation by key
       const list = t('folders', [])
@@ -55,7 +95,95 @@ export default {
       emit('back')
       router.push('/portfolio')
     }
-    return { activeVideo, openVideo, closeVideo, translatedLabel, altFor, goBack, t }
+
+    function hasGenerated(v){ return !!generatedThumbs.value[v.src] }
+    function previewSrc(v){ return generatedThumbs.value[v.src] || v.thumb || '/glscreen.png' }
+
+    function restoreCache(){
+      props.videos.forEach(v=>{
+        try {
+          const cached = localStorage.getItem('pv:'+v.src)
+          if(cached){
+            generatedThumbs.value = { ...generatedThumbs.value, [v.src]: cached }
+          }
+        } catch(e){}
+      })
+    }
+
+    function generatePreview(src){
+      if(generatedThumbs.value[src]) return
+      const video = document.createElement('video')
+      video.src = src
+      video.muted = true
+      video.playsInline = true
+      let captured = false
+      const cleanup = ()=>{
+        video.removeEventListener('loadeddata', onLoaded)
+        video.removeEventListener('seeked', onSeeked)
+        video.remove()
+      }
+      function capture(){
+        if(captured) return
+        captured = true
+        try {
+          const w = video.videoWidth, h = video.videoHeight
+            if(!w || !h) throw new Error('no dims')
+          const maxW = 360
+          let dw = w, dh = h
+          if(w > maxW){ const r = maxW / w; dw = Math.round(w*r); dh = Math.round(h*r) }
+          const canvas = document.createElement('canvas')
+          canvas.width = dw; canvas.height = dh
+          const ctx = canvas.getContext('2d')
+          ctx.drawImage(video, 0, 0, dw, dh)
+          const data = canvas.toDataURL('image/jpeg', 0.65)
+          generatedThumbs.value = { ...generatedThumbs.value, [src]: data }
+          try { localStorage.setItem('pv:'+src, data) } catch(e){}
+        } catch(e){}
+        cleanup()
+      }
+      function onLoaded(){
+        try {
+          const target = Math.min(0.4, (video.duration||1)*0.05)
+          video.currentTime = target
+        } catch(e){ /* ignore */ }
+      }
+      function onSeeked(){ capture() }
+      video.addEventListener('loadeddata', onLoaded)
+      video.addEventListener('seeked', onSeeked)
+      setTimeout(()=>capture(), 4500) // fallback
+    }
+
+    function setupObserver(){
+      if(typeof IntersectionObserver === 'undefined'){
+        props.videos.forEach(v=>generatePreview(v.src))
+        return
+      }
+      observer.value = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            const src = entry.target.getAttribute('data-src')
+            generatePreview(src)
+            observer.value.unobserve(entry.target)
+          }
+        })
+      }, { rootMargin: '140px 0px' })
+      nextTick(()=>{
+        itemEls.value.forEach(el=>{ if(el) observer.value.observe(el) })
+      })
+    }
+
+    onMounted(()=>{
+      restoreCache()
+      setupObserver()
+    })
+    onBeforeUnmount(()=>{ if(observer.value) observer.value.disconnect() })
+    watch(()=>props.videos, ()=>{
+      if(observer.value) observer.value.disconnect()
+      itemEls.value = []
+      setupObserver()
+    })
+
+    return { activeVideo, openVideo, closeVideo, translatedLabel, altFor, goBack, t, previewSrc, hasGenerated, itemEls, isActive, startHover, stopHover, hoverVideo }
   }
 }
 </script>
@@ -68,18 +196,23 @@ export default {
 .fv-title{margin:0;font-size:clamp(1.8rem,4vw,2.4rem);font-weight:650;letter-spacing:.5px}
 .fv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:2.4rem}
 @media (max-width:780px){.fv-grid{gap:1.6rem;grid-template-columns:repeat(auto-fill,minmax(155px,1fr))}}
-.fv-item .thumb{position:relative;border-radius:var(--radius-card);overflow:hidden;aspect-ratio:9/16;background:linear-gradient(180deg,#c68fc1,#d6b0d2);box-shadow:0 16px 50px -18px rgba(0,0,0,.28);transition:transform .55s cubic-bezier(.16,.8,.3,1),box-shadow .55s}
+.fv-item .thumb{position:relative;border-radius:var(--radius-card);overflow:hidden;aspect-ratio:9/16;background:linear-gradient(180deg,#c68fc1,#d6b0d2);box-shadow:0 16px 50px -18px rgba(0,0,0,.28);transition:transform .55s cubic-bezier(.16,.8,.3,1),box-shadow .55s;cursor:pointer}
 .fv-item:hover .thumb{transform:translateY(-10px);box-shadow:0 28px 70px -24px rgba(0,0,0,.42)}
-.fv-item img{width:100%;height:100%;object-fit:cover;display:block;opacity:.12;mix-blend-mode:luminosity;transition:opacity .6s}
-.fv-item:hover img{opacity:.22}
+.inline-player{position:relative;border-radius:var(--radius-card);overflow:hidden;aspect-ratio:9/16;box-shadow:0 22px 60px -22px rgba(0,0,0,.4);background:#000;display:flex}
+.inline-player video{width:100%;height:100%;object-fit:cover;display:block}
+.inline-close{position:absolute;top:.4rem;right:.45rem;background:rgba(0,0,0,.45);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:8px;padding:.25rem .55rem;font-size:1rem;line-height:1;cursor:pointer;backdrop-filter:blur(4px);}
+.inline-close:hover{background:rgba(0,0,0,.65)}
+.fv-item img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .6s,filter .6s}
+.fv-item img.placeholder{opacity:.14;mix-blend-mode:luminosity;filter:saturate(40%)}
+.fv-item:hover img.placeholder{opacity:.24}
 .fv-item .play{position:absolute;inset:auto auto 1.25rem 1.25rem;background:#fff;border:none;border-radius:999px;padding:.85rem 1rem;font-size:.9rem;cursor:pointer;font-weight:600;box-shadow:0 4px 12px -4px rgba(0,0,0,.36);transition:background .25s,transform .3s}
 .fv-item .play:hover{background:#fff;transform:scale(1.1)}
+/* Hover preview layer */
+.hover-preview{position:absolute;inset:0;display:flex;background:#000;animation:fadeIn .35s ease forwards}
+.hover-preview video{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.95) saturate(110%);}
+@keyframes fadeIn{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:scale(1)} }
+@media (hover:none){ .hover-preview{display:none!important} }
 @media (max-width:600px){.fv-item .thumb{aspect-ratio:9/15;border-radius:var(--radius-lg)}.fv-item .play{inset:auto auto .85rem .85rem;padding:.6rem .75rem;font-size:.78rem}}
 
-/* Simple modal */
-.video-modal{position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;z-index:90;padding:1.5rem}
-.vm-content{position:relative;width:100%;max-width:560px;background:#111;border-radius:18px;box-shadow:0 18px 60px -10px rgba(0,0,0,.55);padding:1rem}
-.vm-close{position:absolute;top:.35rem;right:.55rem;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:.35rem .65rem;font-size:1.1rem;cursor:pointer;line-height:1;backdrop-filter:blur(4px);}
-.vm-close:hover{background:rgba(255,255,255,.25)}
-.vm-content video{width:100%;height:auto;max-height:70vh;display:block;border-radius:8px;background:#000}
+/* Modal styles removed (inline playback now) */
 </style>

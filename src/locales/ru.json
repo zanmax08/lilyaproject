@@ -18,10 +18,10 @@
   "portfolio": { "desc": "Подборка UGC-видео, рилсов и промо.", "preview": "Превью видео", "items": [], "empty": "В этом разделе пока нет работ." },
   "folders": [
     { "key": "mom", "label": "Мама и дочка" },
-    { "key": "fashionMom", "label": "Fashion мама и дочка" },
+  { "key": "fashionMom", "label": "Fashion мама & дочка" },
     { "key": "kids", "label": "Детские игрушки" },
     { "key": "beauty", "label": "Бьюти" },
-    { "key": "food", "label": "Еда и напитки" },
+    { "key": "food", "label": "Еда & напитки" },
     { "key": "other", "label": "Другое" }
   ],
   "portfolioUI": {

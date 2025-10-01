@@ -4,16 +4,18 @@
       <div class="pf-header" v-reveal="{mode:'up',delay:40}">
         <h2 class="pf-title"><span>{{ headingTop }}</span><br/>{{ headingBottom }}</h2>
       </div>
-      <ul class="pf-grid" v-reveal="{mode:'up',delay:120}">
-        <li v-for="f in folders" :key="f.key" class="pf-item" @click="$emit('select', f)" tabindex="0" @keydown.enter.prevent="$emit('select', f)">
-                  <div class="icon-wrap"><img :src="folderIcon" alt="folder icon" loading="lazy" /></div>
-                  <span class="label">{{ f.label }}</span>
-                </li>
+            <ul class="pf-grid" v-reveal="{mode:'up',delay:120}">
+              <li v-for="f in normalizedFolders" :key="f.key" class="pf-item" @click="$emit('select', f)" tabindex="0" @keydown.enter.prevent="$emit('select', f)">
+                <div class="icon-wrap"><img :src="folderIcon" alt="folder icon" loading="lazy" /></div>
+                <span class="label">{{ f.label }}</span>
+              </li>
       </ul>
     </div>
   </section>
 </template>
 <script>
+import { computed } from 'vue'
+import { t } from '@/i18n'
 export default {
   name:'PortfolioFolders',
   props:{
@@ -23,7 +25,18 @@ export default {
   },
   setup(props){
     const folderIcon = '/folder.PNG'
-    return { folderIcon }
+    const translations = computed(()=>{
+      const arr = t('folders', [])
+      return Array.isArray(arr)? arr: []
+    })
+    const normalizedFolders = computed(()=>{
+      return props.folders.map(f => {
+        if(f.label) return f
+        const tr = translations.value.find(x=>x.key===f.key)
+        return tr ? { ...f, label: tr.label } : { ...f, label: f.key }
+      })
+    })
+    return { folderIcon, normalizedFolders }
   }
 }
 </script>
