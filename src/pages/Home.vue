@@ -3,7 +3,7 @@
     <section class="hero hero-pink hero-bg" v-reveal:fade>
       <div class="hero-inner with-photo">
         <div class="hero-left" v-reveal="{mode:'left',delay:80}">
-          <h1 class="hero-title" v-html="t('homeHero.title_line1') + '<br/>' + t('homeHero.title_line2')" v-reveal="{mode:'up',delay:140}"></h1>
+          <h1 class="hero-title" v-reveal="{mode:'up',delay:140}"><span class="title-line-1">{{ t('homeHero.title_line1') }}</span><span class="title-line-2">{{ t('homeHero.title_line2') }}</span></h1>
           <h3 class="hero-sub" v-html="t('homeHero.subtitle')" v-reveal="{mode:'up',delay:220}"></h3>
           <div class="hero-cta" v-reveal="{mode:'up',delay:320}">
             <router-link to="/portfolio" class="btn large hover-pop"><span>{{ t('homeHero.cta_portfolio') }}</span></router-link>
@@ -97,11 +97,12 @@ export default {
 /* wave decorative overlay */
 .hero-bg::before{content:"";position:absolute;inset:0;background:url(/glscreen.png) left bottom/auto 120% no-repeat;opacity:.85;pointer-events:none;mix-blend-mode:screen}
 
-.hero-inner{max-width:1700px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:4rem;padding:3rem 3.5rem}
+.hero-inner{max-width:1700px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:4rem;padding:3rem 3.5rem;overflow:hidden}
 .hero-inner.with-photo{min-height:520px}
-.hero-left{flex:1;max-width:900px;z-index:1}
+.hero-left{flex:1;max-width:900px;z-index:1;min-width:0}
 .hero-title{font-size:6rem;line-height:.92;margin:0 0 1.2rem;font-weight:800;letter-spacing:.5px}
 .hero-sub{font-size:2.4rem;margin:0 0 2.6rem;font-weight:600}
+.hero-title,.hero-sub{overflow-wrap:break-word;word-break:break-word;hyphens:auto;max-width:100%;}
 .hero-cta .btn.large{position:relative;overflow:hidden;padding:1.05rem 3.2rem;border-radius:56px;background:linear-gradient(90deg,#fff4ea 0%,#ffd7f2 40%,#ffc8ec 60%,#ffbde5 100%);background-size:200% 100%;background-position:0 0;color:#111;font-weight:700;letter-spacing:.5px;box-shadow:0 4px 18px -4px rgba(0,0,0,.15);transition:background-position .6s ease,transform .42s cubic-bezier(.16,.8,.3,1),box-shadow .4s;will-change:transform,background-position;transform-origin:center center}
 .hero-cta .btn.large span{position:relative}
 /* Glow layer */
@@ -115,10 +116,14 @@ export default {
 .hero-cta .btn.large:active{transform:scale(1.08);transition-duration:.2s}
 
 /* Arch photo block */
-.hero-photo-arch{width:540px;flex-shrink:0;display:flex;justify-content:flex-end;z-index:1}
+.hero-photo-arch{width:540px;flex-shrink:0;display:flex;justify-content:flex-end;z-index:1;min-width:0}
 .arch-frame.big{width:540px;height:540px;display:flex;flex-direction:column;padding:14px;background:linear-gradient(180deg,#fdebe4,#f8dccf);border-radius:52% 52% 40px 40px/60% 60% 40px 40px;box-shadow:0 12px 40px -8px rgba(0,0,0,.18)}
 .arch-inner{flex:1;overflow:hidden;border-radius:48% 48% 28px 28px/58% 58% 30px 30px;position:relative}
 .arch-inner img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+/* Mobile: shift focal point slightly downward so верх кадра полностью виден */
+@media (max-width:960px){
+  .arch-inner img{object-position:center 12%;}
+}
 .arch-base{display:none}
 
 /* Responsive */
@@ -144,15 +149,34 @@ export default {
   .hero-pink{border-radius:0 0 42px 42px/0 0 42px 42px}
   .hero-left{display:flex;flex-direction:column;align-items:center}
   .hero-photo-arch{width:100%;display:flex;justify-content:center}
-  .arch-frame.big{width:100%;height:380px;border-radius:40px;padding:12px}
+  .arch-frame.big{width:100%;height:400px;border-radius:40px;padding:12px}
   .arch-inner{border-radius:30px}
   .hero-title{font-size:2.75rem;margin-bottom:1rem}
   .hero-sub{font-size:1.4rem;margin:0 0 1.4rem}
   .arch-base{display:none}
 }
+/* Extra small height devices (e.g., iPhone SE landscape height class) */
+@media (max-width:520px) and (max-height:740px){
+  .arch-frame.big{height:340px}
+  .hero-inner{gap:1.4rem;padding:1.9rem 1rem 2rem}
+  .hero-title{font-size:2.45rem}
+  .hero-sub{font-size:1.28rem;margin-bottom:1.1rem}
+}
+@media (max-width:520px) and (max-height:680px){
+  .arch-frame.big{height:310px}
+  .hero-title{font-size:2.28rem}
+  .hero-sub{font-size:1.22rem}
+  .hero-inner{padding:1.7rem .95rem 1.85rem}
+}
+@media (max-width:520px) and (max-height:630px){
+  .arch-frame.big{height:290px}
+  .hero-title{font-size:2.12rem}
+  .hero-sub{font-size:1.14rem}
+  .hero-inner{gap:1.2rem}
+}
 @media (max-width:560px){
-  .hero-title{font-size:2.05rem;line-height:1.02}
-  .hero-sub{font-size:1.18rem}
+  .hero-title{font-size: clamp(1.8rem, 7.5vw, 2.05rem);line-height:1.02}
+  .hero-sub{font-size: clamp(1rem, 4vw, 1.18rem);}
   .hero-cta .btn.large{padding:.85rem 2rem}
 }
 @media (max-width:420px){
@@ -160,12 +184,113 @@ export default {
   .hero-title{font-size:1.92rem}
   .hero-sub{font-size:1.08rem;margin-bottom:1.2rem}
 }
+/* Target common 375px width devices (e.g., 375x667) to tighten further before ultra narrow rules */
+@media (max-width:400px){
+  .hero-inner{padding:1.9rem 1rem 2.2rem;gap:1.45rem}
+  .arch-frame.big{height:320px}
+  .hero-title{font-size:1.8rem; letter-spacing: -0.5px;}
+  .hero-sub{font-size:1.0rem;margin-bottom:1.1rem; line-height: 1.3;}
+  .hero-cta .btn.large{padding:.82rem 1.8rem}
+}
+/* Ultra narrow widths */
+@media (max-width:360px){
+  .hero-inner{padding:1.75rem .85rem 2.1rem;gap:1.3rem}
+  .arch-frame.big{height:350px}
+  .hero-title{font-size:1.82rem;letter-spacing:.2px}
+  .hero-sub{font-size:1rem;margin-bottom:1rem}
+  .hero-cta .btn.large{padding:.78rem 1.6rem;font-size:.92rem}
+}
+@media (max-width:340px){
+  .arch-frame.big{height:330px}
+  .hero-title{font-size:1.72rem}
+  .hero-sub{font-size:.96rem}
+  .hero-inner{padding:1.6rem .75rem 2rem;gap:1.15rem}
+}
 </style>
 
 <style scoped>
+/* Hero title line handling: keep full 'Лилия | Kids UGC' on first line, force 'Ментор мам' to new line */
+.hero-title .title-line-1 { display:inline; }
+.hero-title .title-line-2 { display:block; }
+
+@media (max-width: 559px) {
+  .hero-title .title-line-1 { display:block; }
+  .hero-title .title-line-2 { display:block; }
+  .hero-title .title-line-1,
+  .hero-title .title-line-2 { line-height: 0.95; }
+}
+
+/* Intro Screens Section */
+.intro-screens{
+  position: relative;
+  max-width: 100%;
+  overflow: hidden; /* Prevent children from breaking out */
+}
+.intro-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+}
+.intro-text {
+  text-align: left;
+  max-width: 520px;
+}
+.intro-text h2 {
+  font-size: 3.2rem;
+  font-weight: 300;
+  margin: 0 0 1.8rem;
+}
+.intro-multiline p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin: 0 0 1.2rem;
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 960px) {
+  .intro-inner {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .intro-text {
+    text-align: center;
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 900px) {
+  .intro-inner { padding: 2.4rem 1.6rem 2.8rem; }
+  .intro-text h2 { font-size: 2.8rem; }
+  .intro-multiline p { font-size: 1.1rem; }
+}
+
+@media (max-width: 640px) {
+  .intro-inner { padding: 2.2rem 1.3rem 2.4rem; }
+  .intro-text h2 { font-size: 2.4rem; margin-bottom: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  .intro-inner { padding: 2rem 1.1rem 2.2rem; }
+  .intro-text h2 { font-size: 2rem; }
+  .intro-multiline p { font-size: 1rem; line-height: 1.45; }
+}
+
+@media (max-width: 375px) {
+  .intro-inner { padding: 1.8rem 1rem 2rem; }
+  .intro-text h2 { font-size: 1.8rem; }
+  .intro-multiline p { font-size: 0.95rem; }
+}
+
 /* Specialties Section */
 .specialties{max-width:1700px;margin:0 auto;padding:3.5rem 3rem 4.5rem;position:relative}
 .spec-heading{font-size:4.2rem;font-weight:300;text-align:center;margin:0 0 2.2rem;letter-spacing:.5px}
+.spec-heading,.spec-lead,.spec-ft-title,.spec-ft-desc{overflow-wrap:break-word;word-break:break-word;hyphens:auto;max-width:100%}
 .spec-features{display:flex;justify-content:center;gap:4.5rem;flex-wrap:wrap;margin:0 0 3.5rem}
 .spec-feature{max-width:340px;text-align:center}
 .spec-ft-title{font-size:1.1rem;font-weight:500;margin:0 0 .6rem;letter-spacing:.5px}
@@ -217,6 +342,7 @@ export default {
   .spec-heading{font-size:2.4rem}
   .spec-lead{font-size:1.22rem}
 }
+
 /* Mobile section rounding unify */
 @media (max-width:900px){
   .intro-screens{border-radius:42px 42px 42px 42px/42px 42px 42px 42px;margin:1.2rem 1rem 0;padding:2.4rem 1.6rem 2.8rem;background:linear-gradient(180deg,#ffffff,#f9f4ff)}
@@ -227,5 +353,54 @@ export default {
 @media (max-width:480px){
   .intro-screens{border-radius:30px;margin:.85rem .85rem 0;padding:2rem 1.1rem 2.2rem}
   .specialties{border-radius:36px 36px 0 0;margin:2.2rem 0 0;padding:2.4rem 1rem 3.2rem;background:linear-gradient(180deg,#ffffff,#fbf7ff)}
+}
+/* Tighten spacing after hero on short devices */
+@media (max-width:520px) and (max-height:680px){
+  .intro-screens{margin:.65rem .75rem 0;padding:1.7rem 1.05rem 2rem}
+}
+/* Phones collage adjustments */
+.intro-screens .phones{display:flex;justify-content:center;align-items:flex-end;gap:2.2rem;margin:0 0 2rem}
+.intro-screens .phone img{display:block;width:100%;height:auto;border-radius:34px;box-shadow:0 10px 34px -14px rgba(0,0,0,.35),0 4px 14px -6px rgba(0,0,0,.25)}
+@media (max-width:900px){
+  .intro-screens .phones{gap:1.6rem}
+}
+@media (max-width:640px){
+  .intro-screens .phones{gap:1.5rem;margin-bottom:1.6rem}
+  .intro-screens .phone{flex: 1 1 44%; max-width: 44%;}
+}
+@media (max-width:520px){
+  .intro-screens .phones{gap:1rem}
+  .intro-screens .phone img{border-radius:28px}
+}
+@media (max-width:480px){
+  .intro-screens .phones{gap:.8rem;margin-bottom:1.4rem}
+  .intro-screens .phone img{border-radius:24px}
+}
+@media (max-width:520px) and (max-height:680px){
+  .intro-screens .phones{margin-bottom:1rem;gap:.75rem}
+}
+
+/* Responsive styles for intro text */
+@media (max-width: 900px) {
+  .intro-inner { padding: 2.4rem 1.6rem 2.8rem; }
+  .intro-text h2 { font-size: 2.8rem; }
+  .intro-multiline p { font-size: 1.1rem; }
+}
+
+@media (max-width: 640px) {
+  .intro-inner { padding: 2.2rem 1.3rem 2.4rem; }
+  .intro-text h2 { font-size: 2.4rem; margin-bottom: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  .intro-inner { padding: 2rem 1.1rem 2.2rem; }
+  .intro-text h2 { font-size: 2rem; }
+  .intro-multiline p { font-size: 1rem; line-height: 1.45; }
+}
+
+@media (max-width: 375px) {
+  .intro-inner { padding: 1.8rem 1rem 2rem; }
+  .intro-text h2 { font-size: 1.8rem; }
+  .intro-multiline p { font-size: 0.95rem; }
 }
 </style>

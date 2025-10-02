@@ -1,5 +1,5 @@
 <template>
-  <header class="mob-header" v-reveal:fade>
+  <header class="mob-header no-shift" v-reveal:fade>
     <div class="row">
       <router-link to="/" class="logo-link" aria-label="Go to home">
         <img src="/logo.png" :alt="t('ui.logo_alt')" class="logo" onerror="this.onerror=null;this.src='/logo-placeholder.svg'" />
@@ -70,14 +70,14 @@ export default {
 </script>
 
 <style scoped>
-.mob-header{padding:4px 0;background:var(--header-gradient);color:#fff;position:sticky;top:0;z-index:70;box-shadow:0 2px 6px -4px rgba(0,0,0,.25);border-radius:18px;margin:6px 6px 0;display:none}
+.mob-header{padding:4px 0;background:var(--header-gradient);color:#fff;position:sticky;top:0;z-index:70;box-shadow:0 2px 6px -4px rgba(0,0,0,.25);border-radius:18px;margin:6px 6px 5px;display:none;min-height:var(--mobile-header-h);} 
 @media (max-width:900px){.mob-header{display:block}}
-.row{display:flex;align-items:center;justify-content:space-between;padding:0 10px;min-height:54px}
-.logo{height:40px;display:block}
+.row{display:flex;align-items:center;justify-content:space-between;padding:0 10px;min-height:calc(var(--mobile-header-h) - 10px)}
+.logo{height:40px;display:block;flex-shrink:0}
 .logo-link{display:block;line-height:0}
 .logo-link:focus-visible{outline:2px solid #fff;outline-offset:4px;border-radius:8px}
 .actions{display:flex;align-items:center;gap:12px}
-.tagline{display:none;margin-left:8px;font-weight:600;letter-spacing:.25px;color:rgba(255,255,255,0.92);text-shadow:0 2px 4px rgba(0,0,0,.25);font-size:.6rem;line-height:1.05;max-width:120px;white-space:normal}
+.tagline{display:none;margin-left:8px;font-weight:600;letter-spacing:.25px;color:rgba(255,255,255,0.92);text-shadow:0 2px 4px rgba(0,0,0,.25);font-size:.6rem;line-height:1.05;max-width:120px;white-space:normal;flex:1;}
 @media (min-width:420px){.tagline{display:block}}
 @media (min-width:480px){.tagline{max-width:150px;font-size:.64rem}}
 @media (min-width:560px){.tagline{max-width:190px;font-size:.7rem}}
@@ -90,12 +90,12 @@ export default {
 .burger span.open::before{transform:rotate(42deg);top:0}
 .burger span.open::after{transform:rotate(-42deg);top:0}
 .lang-select{position:relative}
-.lang-select select{appearance:none;background:rgba(255,255,255,0.18);color:#fff;border:1px solid rgba(255,255,255,0.42);padding:6px 34px 6px 16px;border-radius:18px;font-weight:600;font-size:.72rem;letter-spacing:.5px;backdrop-filter:blur(6px);cursor:pointer;transition:background .35s,border-color .35s}
+.lang-select select{appearance:none;background:rgba(255,255,255,0.18);color:#fff;border:1px solid rgba(255,255,255,0.42);padding:6px 34px 6px 16px;border-radius:18px;font-weight:600;font-size:.72rem;letter-spacing:.5px;backdrop-filter:blur(6px);cursor:pointer;transition:background .35s,border-color .35s;min-height:32px}
 .lang-select select:hover{background:rgba(255,255,255,0.28)}
 .lang-select:after{content:"";position:absolute;pointer-events:none;top:50%;right:14px;width:9px;height:9px;border-right:2px solid #fff;border-bottom:2px solid #fff;transform:translateY(-55%) rotate(45deg);opacity:.9}
 
 /* Overlay */
-.mobile-overlay{position:fixed;inset:0;background:linear-gradient(180deg,rgba(21,16,19,0.68) 0%,rgba(21,16,19,0.42) 32%,rgba(21,16,19,0.18) 64%,rgba(21,16,19,0.05) 100%);backdrop-filter:blur(18px) saturate(170%);display:flex;align-items:flex-start;justify-content:center;z-index:999;animation:overlayIn .35s ease;overflow-y:auto}
+.mobile-overlay{position:fixed;inset:0;background:linear-gradient(180deg,rgba(21,16,19,0.68) 0%,rgba(21,16,19,0.42) 32%,rgba(21,16,19,0.18) 64%,rgba(21,16,19,0.05) 100%);backdrop-filter:blur(18px) saturate(170%);display:flex;align-items:flex-start;justify-content:center;z-index:999;animation:overlayIn .35s ease;overflow-y:auto;will-change:opacity}
 .mobile-panel{width:100%;background:transparent;padding:60px 0 60px;display:flex;flex-direction:column;align-items:center;gap:34px;position:relative;min-height:100%}
 @media (max-width:640px){.mobile-panel{gap:38px}}
 .m-links{display:flex;flex-direction:column;gap:22px;font-size:clamp(1.35rem,4.8vw,2rem);font-weight:650;letter-spacing:.5px;line-height:1.07;margin:6px 0 0;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.25);align-items:center;text-align:center}

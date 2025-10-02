@@ -27,7 +27,23 @@ body{
 	font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 	-webkit-font-smoothing:antialiased;
 	-moz-osx-font-smoothing:grayscale;
+  -webkit-text-size-adjust:100%;
 }
+
+/* Global anti-overflow text & media constraints */
+html,body,#app{max-width:100%;overflow-x:hidden}
+h1,h2,h3,h4,h5,h6,p,span,li,blockquote{overflow-wrap:break-word;word-break:break-word;hyphens:auto;max-width:100%}
+img,video{max-width:100%;height:auto}
+/* Utility to force wrap inside any component */
+.wrap-force{overflow-wrap:break-word;word-break:break-word;hyphens:auto;min-width:0}
+/* Ensure flex children can shrink instead of pushing layout */
+.flex-shrink-fix{min-width:0}
+
+/* Hard overflow guards */
+html,body,#app{max-width:100%;overflow-x:hidden}
+h1,h2,h3,h4,h5,h6,p,span,li,blockquote{overflow-wrap:break-word;word-break:break-word;hyphens:auto;max-width:100%}
+.wrap-force{overflow-wrap:break-word!important;word-break:break-word!important;hyphens:auto!important}
+.no-overflow-x{overflow-x:hidden!important}
 
 /* ================= Animations: utilities & tokens ================= */
 /* Base reveal initial state */

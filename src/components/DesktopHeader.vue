@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style scoped>
-.desk-header{padding:6px 0;background:var(--header-gradient);color:#fff;position:sticky;top:0;z-index:60;box-shadow:0 2px 6px -4px rgba(0,0,0,.25);border-radius:22px;margin:10px 10px 0}
+.desk-header{padding:6px 0;background:var(--header-gradient);color:#fff;position:sticky;top:0;z-index:60;box-shadow:0 2px 6px -4px rgba(0,0,0,.25);border-radius:22px;margin:10px 10px 5px;min-height:var(--mobile-header-h)}
 .inner{display:flex;align-items:center;justify-content:space-between;max-width:1180px;margin:0 auto;padding:0 28px;min-height:60px}
 .brand{display:flex;align-items:center;gap:18px}
 .tag{color:rgba(255,255,255,0.9);font-size:.9rem;font-weight:500;letter-spacing:.35px;white-space:nowrap;text-shadow:0 2px 4px rgba(0,0,0,.25)}

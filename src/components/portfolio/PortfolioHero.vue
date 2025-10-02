@@ -7,7 +7,10 @@
         </div>
       </div>
       <div class="ph-content" v-reveal="{mode:'up',delay:120}">
-        <h1 class="ph-title"><span class="accent">{{ t('portfolioPage.hero.ugc') }}</span><br/><em>{{ t('portfolioPage.hero.portfolio') }}</em></h1>
+        <h1 class="ph-title">
+          <span class="ph-line-1 accent">{{ t('portfolioPage.hero.ugc') }}</span>
+          <span class="ph-line-2">{{ t('portfolioPage.hero.portfolio') }}</span>
+        </h1>
         <p v-for="(p,i) in t('portfolioPage.hero.paragraphs')" :key="i" class="ph-p" v-html="p" />
       </div>
     </div>
@@ -48,9 +51,22 @@ export default {
   .portfolio-hero{padding:1.8rem .9rem 2rem;border-radius:0 0 38px 38px/0 0 38px 38px}
   .ph-title{font-size:clamp(1.75rem,9vw,2.15rem)}
 }
+@media (max-width:360px){
+  .portfolio-hero{padding:1.65rem .75rem 1.9rem}
+  .ph-inner{gap:1.45rem}
+  .hero-image-frame{max-width:clamp(200px,70vw,250px)}
+  .ph-title{font-size:clamp(1.62rem,9.4vw,2rem)}
+  .ph-p{font-size:.9rem}
+}
+@media (max-width:340px){
+  .portfolio-hero{padding:1.55rem .68rem 1.85rem}
+  .hero-image-frame{max-width:clamp(185px,72vw,230px)}
+  .ph-title{font-size:clamp(1.55rem,9.6vw,1.9rem)}
+  .ph-p{font-size:.88rem}
+}
 /* Image frame adaptive scaling */
 .hero-image-frame{background:#fff;border-radius:26px;overflow:hidden;box-shadow:0 10px 28px -12px rgba(0,0,0,.18),0 4px 10px -4px rgba(0,0,0,.06);border:1px solid #eadfd6;width:100%;max-width:clamp(240px,30vw,320px);aspect-ratio:3/4;display:flex;position:relative;margin:0;transition:box-shadow .6s}
-.hero-image{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.4,.16,.2,1)}
+.hero-image{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .8s cubic-bezier(.4,.16,.2,1)}
 .hero-image-frame:hover .hero-image{transform:scale(1.025)}
 @media (min-width:961px){
   .hero-image-frame{max-width:clamp(260px,28vw,360px)}
@@ -61,11 +77,17 @@ export default {
 .ph-content{display:flex;flex-direction:column}
 .ph-title{font-size:clamp(2.15rem,4.4vw,3.05rem);margin:0 0 1.1rem;line-height:1.05;font-weight:700;letter-spacing:.4px}
 .ph-title .accent{background:linear-gradient(90deg,#1f1f1f,#5c5c5c);-webkit-background-clip:text;background-clip:text;color:transparent}
-.ph-title em{font-style:normal;font-weight:350;opacity:.78}
+/* New two-line structure for hero title */
+.ph-title .ph-line-1{display:inline-block;white-space:nowrap}
+.ph-title .ph-line-2{display:block;font-weight:350;opacity:.82;text-transform:uppercase;letter-spacing:1.6px;margin-top:.18rem}
 .ph-p{margin:.55rem 0;max-width:60ch;font-size:clamp(.93rem,1.02vw,1rem);line-height:1.5}
 .ph-p:first-of-type{margin-top:.2rem}
 @media (min-width:1180px){.ph-p{max-width:58ch}}
-@media (max-width:780px){.ph-title{font-size:clamp(2rem,8vw,2.6rem)}.ph-p{font-size:.96rem}}
+@media (max-width:780px){
+  .ph-title{font-size:clamp(2rem,8vw,2.6rem)}
+  .ph-p{font-size:.96rem}
+  .ph-title .ph-line-2{letter-spacing:1.2px}
+}
 @media (prefers-reduced-motion:no-preference){.ph-title{animation:fadeSlide .7s .12s both}}
 @keyframes fadeSlide{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 </style>

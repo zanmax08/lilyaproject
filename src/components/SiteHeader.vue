@@ -94,7 +94,7 @@ export default {
 
 <style scoped>
 /* Header base */
-.site-header{padding:6px 0;background:var(--header-gradient);color:#fff;position:sticky;top:0;z-index:60;box-shadow:0 2px 6px -4px rgba(0,0,0,.25);border-radius:22px;margin:10px 10px 0}
+.site-header{padding:6px 0;background:var(--header-gradient);color:#fff;position:sticky;top:0;z-index:60;box-shadow:0 2px 6px -4px rgba(0,0,0,.25);border-radius:22px;margin:10px 10px 5px;min-height:var(--mobile-header-h)}
 .header-inner{display:flex;align-items:center;justify-content:space-between;max-width:1180px;margin:0 auto;background:transparent;color:inherit;padding:0 10px 0 14px;min-height:56px}
 .site-header .brand{display:flex;align-items:center;gap:14px}
 .logo{height:46px;display:block}
@@ -161,7 +161,7 @@ export default {
 }
 
 @media (max-width:640px){
-  .site-header{padding:4px 0;margin:6px 6px 0;border-radius:18px}
+  .site-header{padding:4px 0;margin:6px 6px 5px;border-radius:18px}
   .logo{height:40px}
   .header-inner{padding:0 10px 0 10px;min-height:54px}
   .burger{padding:6px 8px;border-radius:16px}
