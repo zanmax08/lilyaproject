@@ -13,9 +13,13 @@
   --radius-lg:22px;
   --radius-xl:32px;
   --radius-card:28px;
+	/* Layout tokens */
+	--mobile-header-h:64px;
 }
 
 html,body{height:100%}
+*,*::before,*::after{box-sizing:border-box}
+body{overflow-x:hidden}
 body{
 	margin:0;
 	background:var(--bg);
@@ -54,6 +58,12 @@ body{
 
 /* container: full width, no side padding */
 #app{max-width:none;width:100%;margin:0;padding:0;display:flex;flex-direction:column;min-height:100vh}
+
+/* Utility: first fold fit (mobile) */
+.screen-fit{min-height:calc(100vh - var(--mobile-header-h));}
+@supports(padding:max(env(safe-area-inset-top))){
+	.screen-fit{min-height:calc(100vh - var(--mobile-header-h) - env(safe-area-inset-top));}
+}
 
 a{color:var(--accent-2);text-decoration:none}
 

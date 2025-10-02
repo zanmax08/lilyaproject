@@ -5,7 +5,7 @@
   },
   "contactStatus": { "sending": "Enviando…", "sent": "¡Enviado!", "error": "Error al enviar. Intenta de nuevo." },
   "nav": { "home": "Inicio", "portfolio": "Portafolio", "contact": "Contacto" },
-  "hero": { "title": "UGC CREATOR & VIDEOMAKER", "lead": "Soy Lilya — creo vídeos UGC, reels y anuncios creativos. Lista para colaborar.", "portfolio": "Portafolio", "contact": "Contactarme" },
+  "hero": { "title": "UGC CREATOR & VIDEOMAKER", "shortTitle": "CREADORA UGC", "lead": "Soy Lilya — creo vídeos UGC, reels y anuncios creativos. Lista para colaborar.", "portfolio": "Portafolio", "contact": "Contactarme" },
   "about": { "heading": "Sobre mí", "text": "Mi pasión por la filmación y la fotografía comenzó como un hobby y se convirtió en mi profesión." },
   "portfolio": { "desc": "Selección de vídeos UGC, reels y promos.", "preview": "Vista previa de vídeo", "items": [], "empty": "No hay elementos en el portafolio todavía." },
   "folders": [

@@ -1,5 +1,5 @@
 <template>
-  <div class="portfolio-page">
+  <div class="portfolio-page screen-fit">
     <PortfolioHero />
     <VideoExamples :items="videoItems" />
     <div ref="foldersAnchor"></div>
@@ -62,7 +62,13 @@ export default {
 </script>
 
 <style scoped>
-.portfolio-page{--pad:clamp(1.25rem,4vw,3.2rem);color:#2c2c2c;background:#fff}
+.portfolio-page{--pad:clamp(1.25rem,4vw,3.2rem);color:#2c2c2c;background:#fff;padding-top:1.2rem;padding-bottom:2.4rem;display:flex;flex-direction:column;gap:2.8rem}
+@media (max-width:900px){
+  .portfolio-page{padding-top:1rem;padding-left:1rem;padding-right:1rem;gap:2.2rem}
+}
+@media (max-width:560px){
+  .portfolio-page{padding-top:.75rem;gap:1.9rem}
+}
 :deep(.reveal){opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s cubic-bezier(.4,.16,.2,1)}
 :deep(.reveal.is-visible){opacity:1;transform:none}
 </style>
