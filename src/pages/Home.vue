@@ -133,11 +133,17 @@ export default {
   .hero-photo-arch{width:420px}
   .arch-frame.big{width:420px;height:420px}
 }
+/* Fluid adaptive sizing for hero photo on desktop (override fixed widths above) */
+@media (min-width:961px){
+  .hero-photo-arch,
+  .arch-frame.big{width:clamp(360px,40vw,540px);height:clamp(360px,40vw,540px)}
+}
 @media (max-width:960px){
-  .hero-inner{flex-direction:column;align-items:flex-start;gap:1.8rem;padding:2.2rem 1.15rem 2.4rem}
+  .hero-inner{flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.8rem;padding:2.2rem 1.15rem 2.4rem}
   /* unify hero rounded top on mobile */
   .hero-pink{border-radius:0 0 42px 42px/0 0 42px 42px}
-  .hero-photo-arch{width:100%}
+  .hero-left{display:flex;flex-direction:column;align-items:center}
+  .hero-photo-arch{width:100%;display:flex;justify-content:center}
   .arch-frame.big{width:100%;height:380px;border-radius:40px;padding:12px}
   .arch-inner{border-radius:30px}
   .hero-title{font-size:2.75rem;margin-bottom:1rem}
