@@ -10,7 +10,7 @@
       <div class="vx-grid" v-reveal="{mode:'up',delay:160}">
         <div v-for="(item,i) in localItems" :key="i" class="vx-item" @mouseenter="startHover(item,i,$event)" @mouseleave="stopHover(item,i,$event)">
           <div v-if="!isActive(item)" class="thumb" :data-src="item.src" :ref="el => thumbEls[i] = el" @click="playInline(item)">
-            <img :src="displayThumb(item)" :alt="item.alt || (t('portfolioPage.examples.video') + ' ' + (i+1))" :class="{ placeholder: !hasPreview(item), 'is-hovering': hoverItem && hoverItem.src===item.src }" loading="lazy" decoding="async" :fetchpriority="i<2 ? 'high' : 'low'" />
+            <img :src="displayThumb(item)" :alt="item.alt || (t('portfolioPage.examples.video') + ' ' + (i+1))" :class="{ placeholder: !hasPreview(item), 'is-hovering': hoverItem && hoverItem.src===item.src }" loading="lazy" decoding="async" :fetchpriority="i<2 ? 'high' : 'low'" @error="e=>{ if(e.target && !e.target._fallback){ e.target._fallback=true; e.target.src='/glscreen.png' } }" />
             <div v-if="hoverItem && hoverItem.src===item.src" class="hover-preview" aria-hidden="true">
               <video :src="item.mini || item.src" muted playsinline autoplay loop preload="metadata"></video>
             </div>

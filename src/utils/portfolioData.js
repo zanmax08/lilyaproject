@@ -6,7 +6,9 @@ export const folderDefs = [
   { key: 'kids', dir: 'Kids Toys' },
   { key: 'beauty', dir: 'Beauty' },
   { key: 'food', dir: 'Food' },
-  { key: 'other', dir: 'Other' }
+  { key: 'other', dir: 'Other' },
+  // Dedicated small curated examples set
+  { key: 'videoEX', dir: 'videoEX' }
 ]
 
 const videoFiles = {
@@ -15,7 +17,8 @@ const videoFiles = {
   'Kids Toys': ['1.MOV','2.MOV'],
   'Beauty': ['1.MOV','2.MOV','3.MOV','4.MOV'],
   'Food': ['1.MOV','2.MOV','3.MOV'],
-  'Other': ['1.MOV','2.MOV','3.MOV','4.MP4','5.MOV']
+  'Other': ['1.MOV','2.MOV','3.MOV','4.MP4','5.MOV'],
+  'videoEX': ['1.MOV','2.MOV','3.MOV','4.MOV']
 }
 
 export function getFolderItems(){
@@ -28,7 +31,9 @@ export function buildFolderVideos(){
   for(const def of folderDefs){
     const files = videoFiles[def.dir] || []
     map[def.key] = files.map((file, i) => ({
-      thumb: '/glscreen.png',
+      // If a sidecar PNG with same base name exists, use it as a clean thumbnail preview (placed manually in public folder)
+      // e.g. 1.MOV -> 1.PNG in same directory.
+      thumb: `/videos/${def.dir}/${file.replace(/\.[^.]+$/, '.PNG')}`,
       // alt will be constructed in component using translation pattern
       index: i+1,
       src: `/videos/${def.dir}/${file}`

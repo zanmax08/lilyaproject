@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Lilya — UGC Creator / Videomaker",
-    "footer": "Lilya — UGC Creator"
+    "title": "Lily — UGC Creator / Videomaker",
+    "footer": "Lily — UGC Creator"
   },
   "contactStatus": { "sending": "Sending…", "sent": "Sent!", "error": "Error sending. Try again." },
   "nav": { "home": "Home", "portfolio": "Portfolio", "contact": "Contact" },
@@ -54,23 +54,38 @@
       { "title": "Testing videos", "desc": "Trying out toys, fashion items, cosmetics, and more while sharing my first impressions on camera." },
       { "title": "Product reviews", "desc": "Short videos highlighting the product, explaining its benefits, and showcasing what makes it unique." }
     ],
-    "lead": "I create short videos that grab attention and keep viewers hooked — exactly what your brand needs.",
+  "lead": "<strong>Why brands choose us</strong><br/>Family UGC that reaches millions & drives engagement:<br/>• Viral videos with 1000s of saves & shares<br/>• Moms asking for product links<br/>• Loyal audiences that come back<br/><br/><strong>💡 What makes us different</strong><br/>• 150+ brand collabs<br/>• Natural storytelling (not salesy)<br/>• Scripts with clear hooks & emotion<br/>• Organic growth + ad-ready edits<br/><br/><strong>👉 Brands love this content</strong> because it’s not just aesthetic — it brings real results.",
+    "compact": {
+      "heading1": "Why brands choose us",
+      "heading2": "What makes us different",
+      "reasons": [
+        "Viral videos with 1000s of saves & shares",
+        "Moms asking for product links",
+        "Loyal audiences that come back"
+      ],
+      "diffs": [
+        "150+ brand collabs",
+        "Natural storytelling (not salesy)",
+        "Scripts with clear hooks & emotion",
+        "Organic growth + ad-ready edits"
+      ],
+      "final": "Content that isn’t just aesthetic — it delivers real results."
+    },
     "cta": "Contact me"
   }
   ,"ui": { "toggle_menu": "Toggle menu", "logo_alt": "Lilya Creates" }
   ,"homeHero": {
-    "title_line1": "Liliia | Kids UGC",
-    "title_line2": "Mom Mentor",
-    "subtitle": "& Home Creator",
+  "title_line1": "Lilya | I create family & kids",
+    "title_line2": "UGC video",
+    "subtitle": "",
     "cta_portfolio": "VIEW PORTFOLIO"
   },
   "intro": {
-    "heading": "Hi I'm <strong>Liliia</strong> - viral<br/>content expert",
+    "heading": "Hi, I’m <strong>Liliia</strong> — viral<br/>content creator & founder of UGC Kids",
     "paragraphs": [
-      "— UGC Kids. The first expert in content for child-focused brands.",
-      "— I create selling videos for brands.",
-      "<strong>5M+ views.</strong> Organic growth for brands.",
-      "— UGC Kids — Helping moms earn with content."
+      "Together with my 5-year-old daughter (on camera since she was 2!), we produce family-driven UGC that feels warm, authentic, and relatable — and that’s why it actually delivers results.",
+      "For over 3 years, I’ve been mastering content & marketing — from storytelling and emotional hooks to platform algorithms.",
+      "That’s why our videos aren’t just “cute” — they’re built to perform."
     ]
   },
   "portfolioPage": {
@@ -78,11 +93,27 @@
       "ugc": "UGC Creator",
       "portfolio": "Portfolio",
       "paragraphs": [
-        "Authentic short-form UGC that builds trust and drives saves & shares.",
-        "Mother + child production option for family & kids brands.",
-        "5M+ organic views across campaigns and growing.",
-        "Story-driven scripts, clean framing, natural pacing — optimized for Reels/TikTok.",
-        "Scroll to see examples and formats I offer."
+        "Authentic short-form UGC that builds trust, sparks engagement, and keeps audiences coming back.",
+        "👩‍👧 Mother + child production — a unique format perfect for family & kids brands.",
+        "📈 Millions of organic views across campaigns (and growing every day).",
+        "✨ Story-driven scripts with clean visuals and natural pacing — fully optimized for Reels & TikTok.",
+        "<strong>What you get:</strong><br/>• Videos people save, share, and ask for product links in the comments<br/>• Native, lifestyle content that feels warm, real, and relatable<br/>• Flexible production packages (from single videos to bundles)<br/>• Option to publish on my own channels to reach moms & families directly",
+        "👉 Scroll down to see examples and the formats I offer."
+      ]
+    },
+    "formats": {
+      "heading": "Formats I offer",
+      "items": [
+        "Product unboxing",
+        "Try-on hauls (kids & mom)",
+        "Tutorials & how-to demos",
+        "Lifestyle / family vlogs",
+        "Food & beverage reviews",
+        "Beauty routines",
+        "Restaurant & experience reviews",
+        "Before / After transformations",
+        "Voice-over storytelling",
+        "Scripted ads (ready for paid use)"
       ]
     },
     "examples": {
@@ -96,5 +127,24 @@
       "text": "Let’s create scroll‑stopping, conversion‑minded UGC for your brand.",
       "button": "Contact me"
     }
+  },
+  "statsProof": {
+    "folderLabel": "My Stats & Proof",
+    "heading": "My Stats & Proof",
+    "tagline": "Real numbers. Real impact.",
+    "miniSignature": "5M+ organic views • 1000+ saves/shares",
+    "bullets": [
+      "My Stats & Proof — see the results for yourself",
+      "Real numbers. Real impact.",
+      "Proof that my content works"
+    ],
+    "miniVariants": {
+      "default": "📂 My Stats & Proof",
+      "withNumber": "📂 My Stats & Proof — 5M+ views & 2000+ saves",
+      "paren": "📂 My Stats & Proof (see all inside)",
+      "quote": "📂 My Stats & Proof — \"5M+ views. Real results.\""
+    },
+    "ctaHint": "→ open folder",
+    "arrowLabel": "View stats"
   }
 }

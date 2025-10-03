@@ -1,31 +1,14 @@
 {
   "meta": {
-    "title": "Lilya — Creadora UGC / Videomaker",
-    "footer": "Lilya — Creadora UGC"
+    "title": "Lily — Creadora UGC / Videomaker",
+    "footer": "Lily — Creadora UGC"
   },
   "contactStatus": { "sending": "Enviando…", "sent": "¡Enviado!", "error": "Error al enviar. Intenta de nuevo." },
   "nav": { "home": "Inicio", "portfolio": "Portafolio", "contact": "Contacto" },
-  "hero": { "title": "UGC CREATOR & VIDEOMAKER", "shortTitle": "CREADORA UGC", "lead": "Soy Lilya — creo vídeos UGC, reels y anuncios creativos. Lista para colaborar.", "portfolio": "Portafolio", "contact": "Contactarme" },
+  "hero": { "title": "UGC CREATOR & VIDEOMAKER", "lead": "Soy Lilya — creo vídeos UGC, reels y anuncios creativos. Lista para colaborar.", "portfolio": "Portafolio", "contact": "Contactarme" },
   "about": { "heading": "Sobre mí", "text": "Mi pasión por la filmación y la fotografía comenzó como un hobby y se convirtió en mi profesión." },
   "portfolio": { "desc": "Selección de vídeos UGC, reels y promos.", "preview": "Vista previa de vídeo", "items": [], "empty": "No hay elementos en el portafolio todavía." },
-  "folders": [
-    { "key": "mom", "label": "Mamá & hija" },
-    { "key": "fashionMom", "label": "Fashion mamá & hija" },
-    { "key": "kids", "label": "Juguetes infantiles" },
-    { "key": "beauty", "label": "Belleza" },
-    { "key": "food", "label": "Alimentos & bebidas" },
-    { "key": "other", "label": "Otros" }
-  ],
-  "portfolioUI": {
-    "moreExamplesTop": "MÁS",
-    "moreExamplesBottom": "EJEMPLOS",
-    "moreFoldersTop": "OTRAS",
-    "moreFoldersBottom": "CARPETAS",
-    "play": "Ver",
-    "back": "Atrás",
-    "videoAltPattern": "{label} vídeo {index}",
-    "notFound": "Carpeta no encontrada"
-  },
+  "folders": [],
   "contact": {
     "heading": "Contáctame",
     "intro": "¿Interesado en colaborar? Envíame un breve brief.",
@@ -55,13 +38,29 @@
       { "title": "Reseñas de producto", "desc": "Clips cortos que destacan el producto, explican sus beneficios y muestran qué lo hace único." }
     ],
     "lead": "Creo videos cortos que captan la atención y mantienen al público enganchado — justo lo que tu marca necesita.",
+    "compact": {
+      "heading1": "Por qué nos eligen",
+      "heading2": "Qué nos diferencia",
+      "reasons": [
+        "Videos virales con miles de guardados y shares",
+        "Mamás pidiendo links de producto",
+        "Audiencias fieles que regresan"
+      ],
+      "diffs": [
+        "150+ colaboraciones con marcas",
+        "Storytelling natural (sin sonar a venta)",
+        "Guiones con ganchos claros y emoción",
+        "Crecimiento orgánico + ediciones listas para ads"
+      ],
+      "final": "Contenido que no sólo se ve bonito — genera resultados reales."
+    },
     "cta": "Contactarme"
   }
   ,"ui": { "toggle_menu": "Abrir menú", "logo_alt": "Lilya Creates" }
   ,"homeHero": {
-    "title_line1": "Liliia | Kids UGC",
-    "title_line2": "Mentora de mamás",
-    "subtitle": "y Home Creator",
+    "title_line1": "Lilya | creo family & kids",
+    "title_line2": "UGC video",
+    "subtitle": "",
     "cta_portfolio": "VER PORTAFOLIO"
   },
   "intro": {
@@ -78,23 +77,79 @@
       "ugc": "Creadora UGC",
       "portfolio": "Portafolio",
       "paragraphs": [
-        "UGC auténtico que genera confianza y comparte la audiencia.",
-        "Formato madre + hijo para marcas familiares e infantiles.",
-        "5M+ vistas orgánicas acumuladas.",
-        "Guiones con historia, encuadre limpio y ritmo natural para Reels/TikTok.",
-        "Desplaza para ver ejemplos y formatos."
+        "UGC corto auténtico que genera confianza, enciende la interacción y hace que la audiencia vuelva.",
+        "👩‍👧 Producción madre + hijo — un formato único ideal para marcas familiares e infantiles.",
+        "📈 Millones de vistas orgánicas en campañas (creciendo cada día).",
+        "✨ Guiones con historia, visual limpio y ritmo natural — totalmente optimizado para Reels & TikTok.",
+        "<strong>Qué recibes:</strong><br/>• Vídeos que la gente guarda, comparte y donde piden links del producto en comentarios<br/>• Contenido nativo estilo vida: cálido, real y cercano<br/>• Paquetes flexibles (desde un solo video hasta bundles)<br/>• Opción de publicar en mis canales para llegar directamente a mamás & familias",
+        "👉 Desplaza para ver ejemplos y los formatos que ofrezco."
+      ]
+    },
+    "formats": {
+      "heading": "Formatos que ofrezco",
+      "items": [
+        "Unboxing de producto",
+        "Try-on hauls (niño & mamá)",
+        "Tutoriales y demos how‑to",
+        "Vlogs lifestyle / familiares",
+        "Reseñas de comida y bebidas",
+        "Rutinas de belleza",
+        "Reseñas de restaurantes / experiencias",
+        "Transformaciones Antes / Después",
+        "Storytelling con voice‑over",
+        "Anuncios guionizados (listos para paid)"
+      ]
+    },
+    "whatYouGet": {
+      "heading": "Qué recibes",
+      "items": [
+        "Vídeos que la gente guarda, comparte y pide links",
+        "Contenido nativo cercano y auténtico",
+        "Paquetes flexibles (1 vídeo → bundles)",
+        "Opción de publicar en mis canales para llegar a mamás & familias"
       ]
     },
     "examples": {
       "video": "Vídeo",
       "examples": "ejemplos",
-  "lead": "Una selección rotativa de creatividades UGC verticales.",
+      "lead": "Una selección rotativa de creatividades UGC verticales (miniaturas difuminadas por privacidad).",
       "play": "Reproducir vídeo"
     },
     "cta": {
       "heading": "¿Listos para colaborar?",
       "text": "Creamos UGC que detiene el scroll y convierte.",
       "button": "Contactarme"
+    }
+  }
+  ,"statsProof": {
+    "folderLabel": "Mis cifras y pruebas",
+    "tagline": "Números reales. Impacto real.",
+    "miniSignature": "5M+ vistas orgánicas • miles de guardados y shares",
+    "bullets": [
+      "My Stats & Proof — mira los resultados tú misma",
+      "Números reales. Impacto real.",
+      "Prueba de que mi contenido funciona"
+    ],
+    "miniVariants": {
+      "default": "📂 My Stats & Proof",
+      "withNumber": "📂 My Stats & Proof — 5M+ vistas & 2000+ guardados",
+      "paren": "📂 My Stats & Proof (todas las cifras dentro)",
+      "quote": "📂 My Stats & Proof — \"5M+ vistas. Resultados reales.\""
+    },
+    "variants": {
+      "mini": "Mis cifras y pruebas — 5M+ vistas orgánicas & 2000+ guardados por vídeo viral",
+      "paren": "Mis cifras y pruebas (5M+ vistas dentro)",
+      "quote": "Mis cifras y pruebas — \"5M+ vistas. Miles de shares. Resultados reales.\""
+    },
+    "introBlock": {
+      "heading": "Creo UGC familiar & infantil que vende sin sentirse agresivo.",
+      "intro": [
+        "Hola, soy Liliia — creadora viral y fundadora de <strong>UGC Kids</strong>.",
+        "Junto a mi hija de 5 años (en cámara desde los 2) producimos UGC familiar cálido, auténtico y cercano — y por eso rinde.",
+        "Más de 3 años perfeccionando guiones, ganchos emocionales y algoritmos — los vídeos no son sólo ‘tiernos’, están diseñados para convertir.",
+        "<strong>Por qué nos eligen</strong>: guardados, compartidos, comentarios pidiendo link, audiencia que vuelve.",
+        "<strong>Diferenciales</strong>: 150+ marcas • guiones estratégicos • crecimiento orgánico + ediciones listas para ads."
+      ]
     }
   }
 }

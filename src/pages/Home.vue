@@ -56,8 +56,50 @@
           </div>
         </div>
         <div class="spec-text-block" v-reveal="{mode:'right',delay:180}">
-          <p class="spec-lead" v-reveal="{mode:'up',delay:240}">{{ t('specialties.lead') }}</p>
-          <router-link to="/contact" class="btn spec-cta hover-pop" v-reveal="{mode:'up',delay:340}">{{ t('specialties.cta') }}</router-link>
+          <div v-if="hasCompact" class="spec-compact" v-reveal="{mode:'up',delay:240}">
+            <div class="sc-columns">
+              <div class="sc-col">
+                <h4 class="sc-heading" v-text="t('specialties.compact.heading1')"></h4>
+                <ul class="sc-list">
+                  <li v-for="(r,i) in t('specialties.compact.reasons',[])" :key="'r'+i" v-text="r"></li>
+                </ul>
+              </div>
+              <div class="sc-col">
+                <h4 class="sc-heading" v-text="t('specialties.compact.heading2')"></h4>
+                <ul class="sc-list">
+                  <li v-for="(d,i) in t('specialties.compact.diffs',[])" :key="'d'+i" v-text="d"></li>
+                </ul>
+              </div>
+            </div>
+            <p class="sc-final" v-text="t('specialties.compact.final')"></p>
+          </div>
+          <p v-else class="spec-lead" v-reveal="{mode:'up',delay:240}" v-html="t('specialties.lead')"></p>
+          <router-link to="/contact" class="btn spec-cta hover-pop" v-reveal="{mode:'up',delay: hasCompact ? 420 : 340}">{{ t('specialties.cta') }}</router-link>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Stats & Proof Section -->
+    <section class="stats-proof" v-reveal:fade>
+      <div class="sp-inner">
+        <div class="sp-left" v-reveal="{mode:'left',delay:120}">
+          <h3 class="sp-heading" v-text="t('statsProof.heading')"></h3>
+          <ul class="sp-bullets" v-reveal="{mode:'up',delay:200}">
+            <li v-for="(b,i) in t('statsProof.bullets',[])" :key="'b'+i" v-text="b"></li>
+          </ul>
+          <p class="sp-miniSignature" v-reveal="{mode:'up',delay:320}" v-text="t('statsProof.miniSignature')"></p>
+        </div>
+        <div class="sp-folder-wrap" v-reveal="{mode:'right',delay:180}">
+          <router-link to="/portfolio#stats" class="sp-folder hover-pop">
+            <div class="sp-folder-label">
+              <strong v-text="t('statsProof.folderLabel')"></strong>
+              <span class="sp-folder-mini" v-text="t('statsProof.tagline')"></span>
+            </div>
+          </router-link>
+          <div class="sp-arrow" aria-hidden="true">
+            <svg viewBox="0 0 140 120"><path d="M20 10 C40 40, 60 60, 70 50 S110 20, 120 40"/><path d="M118 38 L112 44"/><path d="M118 38 L111 33"/></svg>
+          </div>
+          <p class="sp-cta-hint" v-text="t('statsProof.ctaHint')"></p>
         </div>
       </div>
     </section>
@@ -75,11 +117,10 @@ export default {
   },
   computed: {
     t() { return t },
-    lead() { return t('hero.lead') },
-    specHeading(){ return t('specialties.heading') },
-    specFeatures(){ return t('specialties.features') || [] },
-    specLead(){ return t('specialties.lead') },
-    specCta(){ return t('specialties.cta') }
+    hasCompact(){
+      const reasons = t('specialties.compact?.reasons') || t('specialties.compact.reasons')
+      return Array.isArray(reasons) && reasons.length>0
+    }
   }
 }
 </script>
@@ -133,6 +174,12 @@ export default {
   .hero-photo-arch{width:500px}
   .arch-frame.big{width:500px;height:500px}
 }
+/* Cyrillic (ru) adjustments: slightly tighter size + relaxed line-height to avoid awkward syllable breaks */
+html[lang='ru'] .hero-title{font-size:5.4rem;line-height:.95;word-break:normal}
+@media (max-width:1400px){html[lang='ru'] .hero-title{font-size:4.6rem}}
+@media (max-width:1100px){html[lang='ru'] .hero-title{font-size:4rem;line-height:.98}}
+@media (max-width:960px){html[lang='ru'] .hero-title{font-size:2.65rem;line-height:1.02}}
+@media (max-width:560px){html[lang='ru'] .hero-title{font-size:clamp(1.7rem,7vw,2rem)}}
 @media (max-width:1100px){
   .hero-title{font-size:4rem}
   .hero-photo-arch{width:420px}
@@ -301,9 +348,64 @@ export default {
 .spec-photo-circle img{width:100%;height:100%;object-fit:cover;display:block}
 .spec-text-block{max-width:640px;display:flex;flex-direction:column;align-items:center;gap:3.2rem}
 .spec-lead{font-size:2rem;line-height:1.28;font-weight:400;text-align:center;letter-spacing:1.5px;margin:0}
+.spec-compact{display:flex;flex-direction:column;gap:1.8rem}
+.sc-columns{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2.2rem}
+.sc-col{display:flex;flex-direction:column;gap:.85rem}
+.sc-heading{margin:0;font-size:1rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase;opacity:.85;text-align:left}
+.sc-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.55rem;font-size:.92rem;line-height:1.35}
+.sc-list li{position:relative;padding-left:1rem}
+.sc-list li::before{content:"•";position:absolute;left:0;top:0;color:#7a47d9;font-weight:600}
+.sc-final{margin:0;font-size:.9rem;opacity:.85;line-height:1.4;text-align:center}
 .spec-cta{display:inline-block;padding:1.05rem 3.4rem;border-radius:54px;background:linear-gradient(90deg,#fff4ea 0%,#ffd7f2 40%,#ffc8ec 60%,#ffbde5 100%);border:4px solid rgba(216,134,186,0.55);font-weight:500;letter-spacing:2px;font-size:1.65rem;color:#111;text-decoration:none;transition:.45s cubic-bezier(.16,.8,.3,1);box-shadow:0 4px 22px -6px rgba(0,0,0,.2)}
 .spec-cta:hover{transform:scale(1.07);box-shadow:0 14px 38px -10px rgba(0,0,0,.32)}
 .spec-cta:active{transform:scale(1.02)}
+
+/* Stats & Proof Section */
+.stats-proof{max-width:1600px;margin:0 auto;padding:3.8rem 3rem 4.2rem;position:relative}
+.sp-inner{background:linear-gradient(160deg,#6a2bb8,#8a3fd9 55%,#a968ff);border-radius:64px;padding:3.4rem 4rem;display:flex;flex-direction:row;align-items:center;gap:4.2rem;position:relative;overflow:hidden;box-shadow:0 28px 64px -18px rgba(112,40,180,.45),0 12px 28px -6px rgba(60,20,110,.35)}
+.sp-inner::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 18% 24%,rgba(255,255,255,.32),rgba(255,255,255,0) 60%),radial-gradient(circle at 82% 78%,rgba(255,255,255,.18),rgba(255,255,255,0) 70%);mix-blend-mode:overlay;pointer-events:none}
+.sp-left{flex:1;min-width:0;display:flex;flex-direction:column;gap:1.4rem;color:#fff}
+.sp-heading{margin:0;font-size:2.8rem;font-weight:700;letter-spacing:.5px;line-height:1.05}
+.sp-bullets{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.6rem;font-size:1rem;font-weight:400}
+.sp-bullets li{position:relative;padding-left:1.1rem}
+.sp-bullets li::before{content:"▹";position:absolute;left:0;top:0;color:#ffd6ff;font-weight:600}
+.sp-miniSignature{margin:.6rem 0 0;font-size:.9rem;letter-spacing:.5px;opacity:.9;font-weight:500;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.sp-folder-wrap{flex:0 0 320px;display:flex;justify-content:center;align-items:center;position:relative}
+.sp-folder{width:270px;height:200px;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(180deg,#cfa7ff,#b475ff 55%,#9e47ff);border-radius:26px;box-shadow:0 16px 40px -12px rgba(0,0,0,.45);text-decoration:none;color:#fff;font-weight:600;font-size:1.05rem;letter-spacing:.4px;transition:.5s cubic-bezier(.16,.8,.3,1);backdrop-filter:blur(2px)}
+.sp-folder::before{content:"";position:absolute;left:22px;top:-34px;width:118px;height:48px;background:linear-gradient(180deg,#d4b3ff,#b781ff);border-radius:14px 14px 4px 4px;box-shadow:0 8px 22px -6px rgba(0,0,0,.4)}
+.sp-folder:hover{transform:translateY(-6px) scale(1.04);box-shadow:0 30px 60px -14px rgba(28,0,70,.65)}
+.sp-folder:active{transform:translateY(-1px) scale(1.01);transition-duration:.25s}
+.sp-folder-label{z-index:1;text-align:center;display:flex;flex-direction:column;gap:.5rem}
+.sp-folder-label strong{font-size:1.05rem;font-weight:700;letter-spacing:.6px}
+.sp-folder-mini{font-size:.72rem;font-weight:500;opacity:.92;line-height:1.2;white-space:nowrap}
+.sp-arrow{position:absolute;left:50%;bottom:-28px;transform:translate(-50%,0);width:140px;height:120px;pointer-events:none}
+.sp-arrow svg{width:100%;height:100%;stroke:#fff;stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 4px 8px rgba(0,0,0,.35))}
+.sp-cta-hint{margin:0;font-size:.8rem;letter-spacing:1px;text-transform:uppercase;color:#fff;opacity:.85;position:absolute;left:50%;bottom:-54px;transform:translateX(-50%)}
+.sp-variants{margin:1.2rem 0 0;display:flex;flex-direction:column;gap:.4rem;font-size:.7rem;opacity:.6}
+.sp-variants code{background:rgba(255,255,255,.15);padding:.15rem .45rem;border-radius:6px;font-size:.65rem}
+@media (max-width:1250px){
+  .sp-inner{flex-direction:column;align-items:stretch;padding:3rem 3rem}
+  .sp-folder-wrap{order:-1;padding:0 0 1rem}
+  .sp-folder{width:240px;height:176px}
+  .sp-heading{font-size:2.4rem}
+}
+@media (max-width:640px){
+  .stats-proof{padding:2.6rem 1.2rem 3.2rem}
+  .sp-inner{border-radius:46px;padding:2.4rem 1.6rem;gap:2.2rem}
+  .sp-heading{font-size:2.1rem}
+  .sp-bullets{font-size:.9rem}
+  .sp-folder{width:210px;height:160px}
+  .sp-folder::before{left:18px;top:-30px;width:100px;height:42px}
+  .sp-folder-mini{display:none}
+  .sp-cta-hint{bottom:-46px;font-size:.7rem}
+  .sp-arrow{bottom:-18px;width:110px;height:90px}
+}
+@media (max-width:420px){
+  .sp-heading{font-size:1.84rem}
+  .sp-inner{padding:2.2rem 1.3rem}
+  .sp-folder{width:190px;height:150px}
+  .sp-folder::before{left:16px;top:-28px;width:92px;height:38px}
+}
 
 @media (max-width:1500px){
   .spec-photo-circle{width:470px;height:470px}
@@ -326,6 +428,7 @@ export default {
   .spec-photo-circle{width:460px;height:460px}
   .spec-text-block{gap:2.4rem}
   .spec-lead{font-size:1.55rem;letter-spacing:1.2px}
+  .sc-list{font-size:.9rem}
   .spec-cta{font-size:1.4rem;padding:.95rem 2.8rem}
 }
 @media (max-width:640px){
@@ -335,12 +438,18 @@ export default {
   .spec-photo-circle{width:340px;height:340px}
   .spec-main{padding:2.4rem 1.4rem;border-radius:50px}
   .spec-lead{font-size:1.35rem}
+  .sc-columns{gap:1.6rem}
+  .sc-heading{font-size:.92rem;text-align:center}
+  .sc-list{font-size:.85rem}
   .spec-cta{font-size:1.2rem;padding:.85rem 2.2rem;letter-spacing:1.2px}
 }
 @media (max-width:420px){
   .spec-photo-circle{width:280px;height:280px}
   .spec-heading{font-size:2.4rem}
   .spec-lead{font-size:1.22rem}
+  .sc-columns{grid-template-columns:1fr}
+  .sc-heading{text-align:center}
+  .sc-list li{padding-left:.85rem}
 }
 
 /* Mobile section rounding unify */

@@ -32,13 +32,14 @@ export default {
 .portfolio-hero{--pad:clamp(1.25rem,3.6vw,3rem);position:relative;color:#2c2c2c;background:
   radial-gradient(circle at 50% 0%,rgba(200,160,140,.32),rgba(255,255,255,0) 68%),
   linear-gradient(180deg,#ffffff 0%,#fbf8f6 100%);
-  padding:calc(var(--pad)*2.1) var(--pad) calc(var(--pad)*1.6);overflow:hidden}
+  padding:calc(var(--pad)*2.1) var(--pad) calc(var(--pad)*1.6);overflow:visible}
 /* Desktop/container layout */
 .ph-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:clamp(200px,27%,300px) 1fr;gap:clamp(1.6rem,3.6vw,2.8rem);align-items:flex-start;min-height:520px}
 /* Fluid hero height + center on mobile similar to Home */
 @media (max-width:960px){
-  .portfolio-hero{height:calc(100vh - var(--mobile-header-h) - env(safe-area-inset-top,0px));display:flex;align-items:center;padding:2.2rem 1.15rem 2.4rem;border-radius:0 0 42px 42px/0 0 42px 42px}
-  .ph-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.9rem;max-width:760px}
+  /* Let hero grow naturally; remove forced viewport lock to avoid clipping long paragraph content */
+  .portfolio-hero{min-height:auto;height:auto;display:block;padding:2.2rem 1.15rem 2.4rem;border-radius:0 0 42px 42px/0 0 42px 42px}
+  .ph-inner{display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.9rem;max-width:760px}
   .ph-content{align-items:center}
   .ph-title{margin-bottom:.6rem}
 }
