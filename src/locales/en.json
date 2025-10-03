@@ -134,9 +134,9 @@
     "tagline": "Real numbers. Real impact.",
     "miniSignature": "5M+ organic views • 1000+ saves/shares",
     "bullets": [
-      "My Stats & Proof — see the results for yourself",
-      "Real numbers. Real impact.",
-      "Proof that my content works"
+      "5M+ organic views",
+      "1000+ saves & shares",
+      "Real performance screenshots inside"
     ],
     "miniVariants": {
       "default": "📂 My Stats & Proof",
@@ -144,7 +144,12 @@
       "paren": "📂 My Stats & Proof (see all inside)",
       "quote": "📂 My Stats & Proof — \"5M+ views. Real results.\""
     },
-    "ctaHint": "→ open folder",
+      "ctaHint": "open folder",
     "arrowLabel": "View stats"
+  },
+  "statsProofPage": {
+    "shotsHeading": "Performance snapshots",
+    "empty": "Add screenshots into /public/proof to display them here.",
+    "back": "Back"
   }
 }

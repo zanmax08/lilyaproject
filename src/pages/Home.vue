@@ -90,16 +90,13 @@
           <p class="sp-miniSignature" v-reveal="{mode:'up',delay:320}" v-text="t('statsProof.miniSignature')"></p>
         </div>
         <div class="sp-folder-wrap" v-reveal="{mode:'right',delay:180}">
-          <router-link to="/portfolio#stats" class="sp-folder hover-pop">
+          <router-link to="/stats-proof" class="sp-folder hover-pop">
             <div class="sp-folder-label">
               <strong v-text="t('statsProof.folderLabel')"></strong>
               <span class="sp-folder-mini" v-text="t('statsProof.tagline')"></span>
             </div>
           </router-link>
-          <div class="sp-arrow" aria-hidden="true">
-            <svg viewBox="0 0 140 120"><path d="M20 10 C40 40, 60 60, 70 50 S110 20, 120 40"/><path d="M118 38 L112 44"/><path d="M118 38 L111 33"/></svg>
-          </div>
-          <p class="sp-cta-hint" v-text="t('statsProof.ctaHint')"></p>
+          <p class="sp-cta-hint no-arrow" v-text="t('statsProof.ctaHint')"></p>
         </div>
       </div>
     </section>
@@ -378,9 +375,7 @@ html[lang='ru'] .hero-title{font-size:5.4rem;line-height:.95;word-break:normal}
 .sp-folder-label{z-index:1;text-align:center;display:flex;flex-direction:column;gap:.5rem}
 .sp-folder-label strong{font-size:1.05rem;font-weight:700;letter-spacing:.6px}
 .sp-folder-mini{font-size:.72rem;font-weight:500;opacity:.92;line-height:1.2;white-space:nowrap}
-.sp-arrow{position:absolute;left:50%;bottom:-28px;transform:translate(-50%,0);width:140px;height:120px;pointer-events:none}
-.sp-arrow svg{width:100%;height:100%;stroke:#fff;stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 4px 8px rgba(0,0,0,.35))}
-.sp-cta-hint{margin:0;font-size:.8rem;letter-spacing:1px;text-transform:uppercase;color:#fff;opacity:.85;position:absolute;left:50%;bottom:-54px;transform:translateX(-50%)}
+.sp-cta-hint{margin:0;font-size:.75rem;letter-spacing:1.2px;text-transform:uppercase;color:#fff;opacity:.78;position:absolute;left:50%;bottom:-34px;transform:translateX(-50%)}
 .sp-variants{margin:1.2rem 0 0;display:flex;flex-direction:column;gap:.4rem;font-size:.7rem;opacity:.6}
 .sp-variants code{background:rgba(255,255,255,.15);padding:.15rem .45rem;border-radius:6px;font-size:.65rem}
 @media (max-width:1250px){
@@ -397,8 +392,7 @@ html[lang='ru'] .hero-title{font-size:5.4rem;line-height:.95;word-break:normal}
   .sp-folder{width:210px;height:160px}
   .sp-folder::before{left:18px;top:-30px;width:100px;height:42px}
   .sp-folder-mini{display:none}
-  .sp-cta-hint{bottom:-46px;font-size:.7rem}
-  .sp-arrow{bottom:-18px;width:110px;height:90px}
+  .sp-cta-hint{bottom:-30px;font-size:.68rem}
 }
 @media (max-width:420px){
   .sp-heading{font-size:1.84rem}

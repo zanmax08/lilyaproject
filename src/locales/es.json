@@ -126,9 +126,9 @@
     "tagline": "Números reales. Impacto real.",
     "miniSignature": "5M+ vistas orgánicas • miles de guardados y shares",
     "bullets": [
-      "My Stats & Proof — mira los resultados tú misma",
-      "Números reales. Impacto real.",
-      "Prueba de que mi contenido funciona"
+      "5M+ vistas orgánicas",
+      "1000+ guardados y compartidos",
+      "Capturas reales de rendimiento dentro"
     ],
     "miniVariants": {
       "default": "📂 My Stats & Proof",
@@ -141,6 +141,7 @@
       "paren": "Mis cifras y pruebas (5M+ vistas dentro)",
       "quote": "Mis cifras y pruebas — \"5M+ vistas. Miles de shares. Resultados reales.\""
     },
+    "ctaHint": "abrir carpeta",
     "introBlock": {
       "heading": "Creo UGC familiar & infantil que vende sin sentirse agresivo.",
       "intro": [
@@ -151,5 +152,10 @@
         "<strong>Diferenciales</strong>: 150+ marcas • guiones estratégicos • crecimiento orgánico + ediciones listas para ads."
       ]
     }
+  }
+  ,"statsProofPage": {
+    "shotsHeading": "Capturas de rendimiento",
+    "empty": "Agrega capturas a /public/proof para verlas aquí.",
+    "back": "Atrás"
   }
 }
