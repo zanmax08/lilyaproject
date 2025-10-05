@@ -9,13 +9,15 @@
       <p class="sp-mini" v-reveal="{mode:'up',delay:260}" v-text="t('statsProof.miniSignature')"></p>
     </section>
     <section class="sp-grid-section" v-if="images.length" v-reveal>
-      <h2 class="sp-grid-heading" v-text="t('statsProofPage?.shotsHeading','Performance snapshots')"></h2>
       <div class="sp-grid">
         <figure v-for="(img,i) in images" :key="img.src" class="sp-item" @click="open(img,i)">
-          <img :src="img.src" :alt="img.alt || ('Shot '+(i+1))" loading="lazy" decoding="async" />
+          <img :src="img.src" :alt="img.alt || ('Shot '+(i+1))" loading="lazy" decoding="async" @error.stop="removeBroken(i)" />
           <figcaption v-if="img.caption" v-text="img.caption"></figcaption>
         </figure>
       </div>
+    </section>
+    <section v-else class="sp-empty" v-reveal>
+      <p class="sp-empty-text">No proof screenshots loaded. Add files to <code>public/proof</code> or update explicit list.</p>
     </section>
     <div v-if="viewer" class="sp-viewer" @click.self="closeViewer">
       <div class="sp-viewer-inner" v-reveal="{mode:'up'}">
@@ -33,20 +35,25 @@
 <script>
 import { t } from '@/i18n'
 import { getStatsProofImages, getStatsMetrics } from '@/utils/statsProofData'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
 export default {
   name:'StatsProofPage',
   setup(){
-    const images = getStatsProofImages()
+  const images = ref(getStatsProofImages())
     const metrics = getStatsMetrics()
     const page = { metrics }
     const viewer = ref(null)
     function open(img,i){ viewer.value = { ...img, i } }
     function closeViewer(){ viewer.value = null }
-    function prev(){ if(!viewer.value) return; const i=(viewer.value.i-1+images.length)%images.length; viewer.value={ ...images[i], i } }
-    function next(){ if(!viewer.value) return; const i=(viewer.value.i+1)%images.length; viewer.value={ ...images[i], i } }
-    return { t, images, page, viewer, open, closeViewer, prev, next }
+    function prev(){ if(!viewer.value) return; const i=(viewer.value.i-1+images.value.length)%images.value.length; viewer.value={ ...images.value[i], i } }
+    function next(){ if(!viewer.value) return; const i=(viewer.value.i+1)%images.value.length; viewer.value={ ...images.value[i], i } }
+    function removeBroken(index){
+      if(!images.value[index]) return
+      images.value.splice(index,1)
+      if(viewer.value && viewer.value.i === index) viewer.value = null
+    }
+    return { t, images, page, viewer, open, closeViewer, prev, next, removeBroken }
   }
 }
 </script>
@@ -59,8 +66,7 @@ export default {
 .sp-metrics li{background:#fff;border:1px solid #eadff6;padding:.55rem .9rem;border-radius:30px;box-shadow:0 2px 6px -2px rgba(0,0,0,.08)}
 .sp-mini{margin:.3rem 0 0;font-size:.8rem;letter-spacing:1px;text-transform:uppercase;font-weight:600;opacity:.75}
 .sp-grid-section{max-width:1300px;margin:0 auto;padding:0 var(--pad)}
-.sp-grid-heading{font-size:clamp(1.6rem,3.2vw,2.2rem);font-weight:500;margin:0 0 1.4rem}
-.sp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
+.sp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.6rem;align-items:start}
 .sp-item{position:relative;background:#f3eef9;border:1px solid #e3d7f5;border-radius:20px;overflow:hidden;cursor:pointer;box-shadow:0 6px 20px -8px rgba(0,0,0,.15);transition:.4s}
 .sp-item:hover{transform:translateY(-4px);box-shadow:0 12px 30px -10px rgba(0,0,0,.22)}
 .sp-item img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:3/4}
@@ -75,15 +81,18 @@ export default {
 .sp-nav button{background:#2e2340;color:#fff;border:1px solid #493a61;border-radius:12px;padding:.55rem 1.1rem;font-size:1.1rem;cursor:pointer;transition:.3s}
 .sp-nav button:hover{background:#3b2b55}
 .sp-cap{margin:0;font-size:.8rem;opacity:.85;max-width:640px;text-align:center}
-@media (max-width:700px){
+.sp-empty{max-width:900px;margin:0 auto;padding:0 var(--pad)}
+.sp-empty-text{background:#f6f1ff;border:1px dashed #c9b4e9;padding:1.2rem 1.4rem;border-radius:18px;font-size:.9rem;color:#4a3d60}
+@media (max-width:900px){
   .sp-metrics{flex-direction:column;align-items:flex-start}
-  .sp-hero{border-radius:36px;padding:2.2rem var(--pad) 1.9rem}
-  .sp-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
-  .sp-item img{aspect-ratio:9/16}
-  .sp-title{font-size:clamp(2rem,8vw,2.8rem)}
+  .sp-hero{border-radius:40px;padding:2.2rem var(--pad) 1.9rem}
+  .sp-grid{gap:1.2rem}
 }
-@media (max-width:480px){
-  .sp-hero{border-radius:30px}
-  .sp-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.75rem}
+@media (max-width:560px){
+  .sp-grid{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem}
+  .sp-item{border-radius:22px}
+  .sp-item img{aspect-ratio:9/16}
+  .sp-item figcaption{font-size:.6rem}
+  .sp-hero{border-radius:32px}
 }
 </style>

@@ -9,6 +9,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src')
     }
   },
+  assetsInclude: ['**/*.PNG'],
   build: {
     target: 'es2019',
     sourcemap: false,

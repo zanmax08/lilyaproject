@@ -1,39 +1,58 @@
 // Data helpers for the Stats & Proof page.
-// Images: place PNG/JPG screenshots into /public/proof (e.g. 1.png, 2.png ...).
-// This keeps logic simple & no bundler import needed (served statically).
+// Preferred: Place images under src/assets/proof so Vite includes them.
+// Alternative: Put static files in /public/proof (will be referenced directly).
 
-const IMAGE_DIR = '/proof'
-const IMAGE_EXTS = ['png','jpg','jpeg','webp']
+const PUBLIC_DIR = '/proof'
 
-// If you want to explicitly register images with captions, add them here:
+// Explicit list of existing proof screenshots. Add new items here to show them (keeps grid clean).
 const explicit = [
-  // { file: '1.png', caption: '5M+ organic views dashboard' }
+  { file: '1.png', caption: 'High engagement performance' },
+  { file: '2.png', caption: 'Strong saves & shares' },
+  { file: '3.png', caption: 'Growth dashboard snapshot' },
+  { file: '4.png', caption: 'Monetization / key metrics' }
 ]
 
 export function getStatsProofImages(){
-  // If explicit list present, build from that; else generate 1..12 attempt existing names.
+  // 1. If explicit list defined, map directly (try src/assets/proof first, then public)
   if(explicit.length){
-    return explicit.map((e,i)=>({
-      src: `${IMAGE_DIR}/${e.file}`,
-      caption: e.caption || '',
-      alt: e.alt || e.caption || `Proof ${i+1}`
-    }))
+    return explicit.map((e,i)=>buildEntry(e.file, i, e))
   }
-  // Heuristic: attempt sequential names until a gap of 3 in a row.
-  const out = []
-  let misses = 0
-  for(let i=1;i<=50 && misses<3;i++){
-    let found = false
-    for(const ext of IMAGE_EXTS){
-      const src = `${IMAGE_DIR}/${i}.${ext}`
-      // We cannot synchronously know if it exists; still push optimistic entry.
-      out.push({ src, alt: `Proof ${i}` })
-      found = true
-      break
-    }
-    if(!found){ misses++ } else { misses = 0 }
+
+  // 2. Dynamic glob import (bundled assets). Vite returns an object: path -> module
+  let globbed = {}
+  try {
+  globbed = import.meta.glob('../assets/proof/*.{png,PNG,jpg,jpeg,webp,avif,gif}', { eager: true, import: 'default' })
+  } catch(e) {
+    // ignore if glob fails (older tooling) and fall back
   }
-  return out
+  const entries = Object.entries(globbed).map(([path, src], i) => {
+    const file = path.split('/').pop()
+    return { src, alt: `Proof ${i+1}`, caption: '' }
+  })
+  if(entries.length){
+    return entries
+  }
+
+  // 3. Fallback disabled since we use explicit list to avoid empty placeholders.
+  return []
+}
+
+function buildEntry(file, i, meta={}){
+  // Try asset import path pattern first
+  const assetAttempt = tryResolveBundled(file)
+  return {
+    src: assetAttempt || `${PUBLIC_DIR}/${file}`,
+    caption: meta.caption || '',
+    alt: meta.alt || meta.caption || `Proof ${i+1}`
+  }
+}
+
+function tryResolveBundled(file){
+  try {
+    const mods = import.meta.glob('../assets/proof/*', { eager:true, import: 'default' })
+    const found = Object.entries(mods).find(([p]) => p.endsWith('/'+file))
+    return found ? found[1] : null
+  } catch(e){ return null }
 }
 
 export function getStatsMetrics(){

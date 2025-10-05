@@ -19,6 +19,7 @@
 import { t, lang, setLang } from './i18n'
 import DesktopHeader from './components/DesktopHeader.vue'
 import MobileHeader from './components/MobileHeader.vue'
+import router from './router'
 
 export default {
   components: { DesktopHeader, MobileHeader },
@@ -42,6 +43,24 @@ export default {
     if(this._mq.addEventListener){ this._mq.addEventListener('change', handler) } else if(this._mq.addListener){ this._mq.addListener(handler) }
     this._mqHandler = handler
     this.isMobile = this._mq.matches
+
+    // Fallback forced scroll-to-top after route change (in case browser keeps prior scroll)
+    this._removeAfterEach = router.afterEach((to, from) => {
+      // Skip if navigating to an in-page hash anchor (router scrollBehavior handles it)
+      if (to.hash) return
+      // Use requestAnimationFrame to wait page transition mount
+      requestAnimationFrame(() => {
+        // Try resetting various possible scroll containers
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+        const appEl = document.getElementById('app')
+        if (appEl) appEl.scrollTop = 0
+        document.documentElement.scrollTop = 0
+        document.body.scrollTop = 0
+      })
+    })
+  },
+  beforeUnmount(){
+    if (this._removeAfterEach) this._removeAfterEach()
   },
   watch: {
     langLocal(v) { setLang(v) }
