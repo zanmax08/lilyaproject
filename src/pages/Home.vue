@@ -23,15 +23,32 @@
     <!-- Intro / Screens section (Hi I'm Liliia) -->
   <section class="intro-screens" v-reveal:fade>
       <div class="intro-inner">
-        <div class="phones">
-          <div class="phone phone-left" v-reveal="{mode:'left',delay:80}">
-            <img src="https://testugclilia.my.canva.site/_assets/media/c38a4d06143c391d54af44f1cf1fe7aa.jpg" alt="phone1"/>
-          </div>
-          <div class="phone phone-right" v-reveal="{mode:'right',delay:160}">
-            <img src="https://testugclilia.my.canva.site/_assets/media/04102cf21808b6cb0058c8d1b202bcb0.jpg" alt="phone2"/>
+        <div class="intro-video-container" v-reveal="{mode:'left',delay:100}">
+          <div class="video-player">
+            <video 
+              ref="introVideo" 
+              class="video-element" 
+              :src="helloVideo" 
+              playsinline 
+              preload="metadata"
+              @click="togglePlay"
+            ></video>
+            <div class="video-overlay" v-if="!isPlaying" @click="togglePlay">
+              <div class="play-button-large">▶</div>
+            </div>
+            <div class="video-controls">
+              <button class="control-btn" @click="togglePlay" :title="isPlaying ? 'Pause' : 'Play'">
+                <span v-if="isPlaying">❚❚</span>
+                <span v-else>▶</span>
+              </button>
+              <button class="control-btn" @click="toggleMute" :title="isMuted ? 'Unmute' : 'Mute'">
+                <span v-if="isMuted">🔇</span>
+                <span v-else>🔊</span>
+              </button>
+            </div>
           </div>
         </div>
-  <div class="intro-text" v-reveal="{mode:'up',delay:120}">
+        <div class="intro-text" v-reveal="{mode:'right',delay:120}">
           <h2 v-html="t('intro.heading')"></h2>
           <div class="intro-multiline">
             <p v-for="(p,i) in t('intro.paragraphs')" :key="i" v-html="p" v-reveal="{mode:'up',delay: (i*120)+100 }"></p>
@@ -107,16 +124,60 @@
 <script>
 import { t } from '../i18n'
 import liliaPhotoUrl from '/liliaGL.PNG?url'
+import helloVideoUrl from '/hello.MOV?url'
 
 export default {
   data(){
-    return { liliaPhoto: liliaPhotoUrl }
+    return { 
+      liliaPhoto: liliaPhotoUrl, 
+      helloVideo: helloVideoUrl,
+      isPlaying: false,
+      isMuted: true
+    }
   },
   computed: {
     t() { return t },
     hasCompact(){
       const reasons = t('specialties.compact?.reasons') || t('specialties.compact.reasons')
       return Array.isArray(reasons) && reasons.length>0
+    }
+  },
+  methods:{
+    togglePlay(){
+      const video = this.$refs.introVideo
+      if (!video) return
+      
+      if (video.paused) {
+        video.play()
+        this.isPlaying = true
+      } else {
+        video.pause()
+        this.isPlaying = false
+      }
+    },
+    toggleMute(){
+      const video = this.$refs.introVideo
+      if (!video) return
+      
+      video.muted = !video.muted
+      this.isMuted = video.muted
+    }
+  },
+  mounted(){
+    const video = this.$refs.introVideo
+    if (video) {
+      video.muted = true
+      video.loop = true
+      
+      video.addEventListener('play', () => {
+        this.isPlaying = true
+      })
+      video.addEventListener('pause', () => {
+        this.isPlaying = false
+      })
+      video.addEventListener('ended', () => {
+        this.isPlaying = false
+      })
     }
   }
 }
@@ -461,26 +522,161 @@ html[lang='ru'] .hero-title{font-size:5.4rem;line-height:.95;word-break:normal}
 @media (max-width:520px) and (max-height:680px){
   .intro-screens{margin:.65rem .75rem 0;padding:1.7rem 1.05rem 2rem}
 }
-/* Phones collage adjustments */
-.intro-screens .phones{display:flex;justify-content:center;align-items:flex-end;gap:2.2rem;margin:0 0 2rem}
-.intro-screens .phone img{display:block;width:100%;height:auto;border-radius:34px;box-shadow:0 10px 34px -14px rgba(0,0,0,.35),0 4px 14px -6px rgba(0,0,0,.25)}
-@media (max-width:900px){
-  .intro-screens .phones{gap:1.6rem}
+
+/* Video container and player */
+.intro-screens .intro-video-container {
+  flex-shrink: 0;
 }
-@media (max-width:640px){
-  .intro-screens .phones{gap:1.5rem;margin-bottom:1.6rem}
-  .intro-screens .phone{flex: 1 1 44%; max-width: 44%;}
+
+.intro-screens .video-player {
+  position: relative;
+  width: 240px;
+  max-width: 100%;
+  aspect-ratio: 9 / 16;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px -8px rgba(0,0,0,.28), 0 4px 12px -4px rgba(0,0,0,.18);
+  background: #000;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-@media (max-width:520px){
-  .intro-screens .phones{gap:1rem}
-  .intro-screens .phone img{border-radius:28px}
+
+.intro-screens .video-player:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px -8px rgba(0,0,0,.32), 0 6px 16px -4px rgba(0,0,0,.22);
 }
-@media (max-width:480px){
-  .intro-screens .phones{gap:.8rem;margin-bottom:1.4rem}
-  .intro-screens .phone img{border-radius:24px}
+
+.intro-screens .video-element {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
-@media (max-width:520px) and (max-height:680px){
-  .intro-screens .phones{margin-bottom:1rem;gap:.75rem}
+
+.intro-screens .video-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.2);
+  backdrop-filter: blur(1px);
+  transition: opacity 0.3s ease;
+}
+
+.intro-screens .video-overlay:hover {
+  background: rgba(0,0,0,.25);
+}
+
+.intro-screens .play-button-large {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #111;
+  padding-left: 4px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.2);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.intro-screens .play-button-large:hover {
+  transform: scale(1.08);
+  background: rgba(255,255,255,1);
+}
+
+.intro-screens .video-controls {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+
+.intro-screens .control-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0,0,0,.65);
+  backdrop-filter: blur(8px);
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.intro-screens .control-btn:hover {
+  background: rgba(0,0,0,.8);
+  transform: scale(1.08);
+}
+
+.intro-screens .control-btn:active {
+  transform: scale(0.95);
+}
+
+/* Responsive adjustments */
+@media (min-width: 1400px) {
+  .intro-screens .video-player {
+    width: 260px;
+  }
+}
+
+@media (max-width: 960px) {
+  .intro-screens .video-player {
+    width: 220px;
+  }
+  
+  .intro-screens .control-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.75rem;
+  }
+  
+  .intro-screens .play-button-large {
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .intro-screens .video-player {
+    width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .intro-screens .video-player {
+    width: 180px;
+    border-radius: 20px;
+  }
+  
+  .intro-screens .control-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.7rem;
+  }
+  
+  .intro-screens .play-button-large {
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+  }
+  
+  .intro-screens .video-controls {
+    bottom: 8px;
+    left: 8px;
+    gap: 5px;
+  }
 }
 
 /* Responsive styles for intro text */
