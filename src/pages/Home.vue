@@ -29,6 +29,7 @@
               ref="introVideo" 
               class="video-element" 
               :src="helloVideo" 
+              :poster="helloPoster"
               playsinline 
               preload="metadata"
               @click="togglePlay"
@@ -125,12 +126,14 @@
 import { t } from '../i18n'
 import liliaPhotoUrl from '/liliaGL.PNG?url'
 import helloVideoUrl from '/hello.MOV?url'
+import helloPosterUrl from '/hello.PNG?url'
 
 export default {
   data(){
     return { 
       liliaPhoto: liliaPhotoUrl, 
       helloVideo: helloVideoUrl,
+      helloPoster: helloPosterUrl,
       isPlaying: false,
       isMuted: true
     }
