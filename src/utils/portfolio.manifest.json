@@ -6,60 +6,60 @@
         "thumb": null
       },
       {
-        "file": "2.MOV",
-        "thumb": null
+        "file": "Before : After Beauty Routine UGC.MOV",
+        "thumb": "Before : After Beauty Routine UGC.PNG"
       },
       {
-        "file": "3.MOV",
-        "thumb": null
+        "file": "Haircare Routine UGC 2.MOV",
+        "thumb": "Haircare Routine UGC 2.PNG"
       },
       {
-        "file": "4.MOV",
-        "thumb": null
+        "file": "Haircare Routine UGC.MOV",
+        "thumb": "Haircare Routine UGC.PNG"
+      },
+      {
+        "file": "Performance Demo UGC.MOV",
+        "thumb": "Performance Demo UGC.PNG"
       }
     ],
     "Fashion": [
-      {
-        "file": "IMG_0207.MOV",
-        "thumb": null
-      },
-      {
-        "file": "IMG_1406.MOV",
-        "thumb": null
-      },
-      {
-        "file": "IMG_2711.MOV",
-        "thumb": null
-      },
-      {
-        "file": "IMG_7375.MOV",
-        "thumb": null
-      },
       {
         "file": "Lifestyle Try-On.MOV",
         "thumb": "Lifestyle Try-On.PNG"
       },
       {
+        "file": "Party GRWM and Outfit Challenge.MOV",
+        "thumb": "Party GRWM and Outfit Challenge.PNG"
+      },
+      {
+        "file": "Storytelling UGC ad (problem-solution format - emotional fashion story).MOV",
+        "thumb": "Storytelling UGC ad (problem-solution format - emotional fashion story).PNG"
+      },
+      {
         "file": "Try-on : Transition.MOV",
         "thumb": "Try-on : Transition.PNG"
+      },
+      {
+        "file": "Try-on and Demo - Fashion Bra.MOV",
+        "thumb": "Try-on and Demo - Fashion Bra.PNG"
+      },
+      {
+        "file": "Unboxing and Lifestyle Demo - Handbag.MOV",
+        "thumb": "Unboxing and Lifestyle Demo - Handbag.PNG"
       }
     ],
     "Fashion mom & daughter": [
       {
-        "file": "1.MOV",
-        "thumb": null
+        "file": "Lifestyle Fashion UGC 2.MOV",
+        "thumb": "Lifestyle Fashion UGC 2.JPG"
       },
       {
-        "file": "2.MOV",
-        "thumb": null
+        "file": "Lifestyle Fashion UGC 3.MOV",
+        "thumb": "Lifestyle Fashion UGC 3.JPG"
       },
       {
-        "file": "3.MOV",
-        "thumb": null
-      },
-      {
-        "file": "4.MOV",
-        "thumb": "4.PNG"
+        "file": "Lifestyle Fashion UGC.MOV",
+        "thumb": "Lifestyle Fashion UGC.PNG"
       },
       {
         "file": "Try-on with transition.MOV",
@@ -82,34 +82,50 @@
     ],
     "Kids Toys": [
       {
-        "file": "1.MOV",
-        "thumb": "1.PNG"
+        "file": "Before : After Lifestyle UGC.MOV",
+        "thumb": "Before : After Lifestyle UGC.PNG"
       },
       {
-        "file": "2.MOV",
-        "thumb": null
+        "file": "Educational Product Demo.MOV",
+        "thumb": "Educational Product Demo.PNG"
+      },
+      {
+        "file": "Lifestyle Storytelling UGC.MOV",
+        "thumb": "Lifestyle Storytelling UGC.PNG"
+      },
+      {
+        "file": "Product Demo.MOV",
+        "thumb": "Product Demo.PNG"
+      },
+      {
+        "file": "Transformation Concept Ad.MOV",
+        "thumb": "Transformation Concept Ad.PNG"
+      },
+      {
+        "file": "Unboxing & demo product.MOV",
+        "thumb": "Unboxing & demo product.PNG"
       }
     ],
     "Mom & Daughter": [
       {
-        "file": "1.MOV",
+        "file": "“Relatable Mom Hook” UGC.MOV",
+        "thumb": "“Relatable Mom Hook” UGC.PNG"
+      },
+      {
+        "file": "Amazon-style product demonstration video..MOV",
         "thumb": null
       },
       {
-        "file": "2.MOV",
-        "thumb": null
+        "file": "Lifestyle storytelling UGC.MOV",
+        "thumb": "Lifestyle storytelling UGC.PNG"
       },
       {
-        "file": "3.MOV",
-        "thumb": null
+        "file": "Lifestyle UGC with product integration.MOV",
+        "thumb": "Lifestyle UGC with product integration.PNG"
       },
       {
-        "file": "4.MOV",
-        "thumb": null
-      },
-      {
-        "file": "5.MOV",
-        "thumb": null
+        "file": "Lifestyle UGC with voiceover.MOV",
+        "thumb": "Lifestyle UGC with voiceover.PNG"
       }
     ],
     "Other": [
@@ -123,7 +139,7 @@
       },
       {
         "file": "3.MOV",
-        "thumb": "3.PNG"
+        "thumb": null
       },
       {
         "file": "4.MP4",
