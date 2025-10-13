@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node ./scripts/generatePortfolioManifest.mjs",
     "dev": "vite",
+    "prebuild": "node ./scripts/generatePortfolioManifest.mjs",
     "build": "vite build",
     "preview": "vite preview --port 4173"
   },

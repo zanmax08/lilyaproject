@@ -166,7 +166,7 @@ export default {
 @media (max-width:860px){.vx-text{display:block;width:100%;border-radius:22px;margin:0}}
 .vx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:1.4rem}
 @media (min-width:640px){.vx-grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}}
-.vx-item .thumb{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:9/16;background:linear-gradient(180deg,#c68fc1,#d6b0d2);box-shadow:0 8px 28px -10px rgba(0,0,0,.25);transition:transform .55s cubic-bezier(.16,.8,.3,1),box-shadow .55s}
+.vx-item .thumb{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:9/16;background:#000;box-shadow:0 8px 28px -10px rgba(0,0,0,.25);transition:transform .55s cubic-bezier(.16,.8,.3,1),box-shadow .55s}
 .vx-item:hover .thumb{transform:translateY(-6px);box-shadow:0 14px 40px -12px rgba(0,0,0,.36)}
 .vx-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .55s,filter .6s,opacity .5s}
 .vx-item img.placeholder{filter:saturate(65%) blur(0);opacity:.55}

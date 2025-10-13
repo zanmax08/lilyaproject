@@ -1,43 +1,38 @@
-// Centralized portfolio video metadata so list and folder pages share logic.
+// Centralized portfolio video metadata built from a generated manifest.
+// The manifest is created by scripts/generatePortfolioManifest.mjs by scanning public/videos.
 
+import manifest from './portfolio.manifest.json'
+
+// Map stable folder keys (routes) to physical folder names in /public/videos
 export const folderDefs = [
   { key: 'mom', dir: 'Mom & Daughter' },
   { key: 'fashionMom', dir: 'Fashion mom & daughter' },
+  { key: 'fashion', dir: 'Fashion' },
   { key: 'kids', dir: 'Kids Toys' },
   { key: 'beauty', dir: 'Beauty' },
   { key: 'food', dir: 'Food' },
   { key: 'other', dir: 'Other' },
-  // Dedicated small curated examples set
   { key: 'videoEX', dir: 'videoEX' }
 ]
 
-const videoFiles = {
-  'Mom & Daughter': ['1.MOV','2.MOV','3.MOV','4.MOV','5.MOV'],
-  'Fashion mom & daughter': ['1.MOV','2.MOV','3.MOV'],
-  'Kids Toys': ['1.MOV','2.MOV'],
-  'Beauty': ['1.MOV','2.MOV','3.MOV','4.MOV'],
-  'Food': ['1.MOV','2.MOV','3.MOV'],
-  'Other': ['1.MOV','2.MOV','3.MOV','4.MP4','5.MOV'],
-  'videoEX': ['1.MOV','2.MOV','3.MOV','4.MOV']
+function getVideosForDir(dir){
+  const list = (manifest?.folders?.[dir]) || []
+  return list.map((entry, i) => {
+    const src = `/videos/${dir}/${entry.file}`
+    const thumb = entry.thumb ? `/videos/${dir}/${entry.thumb}` : `/videos/${dir}/${entry.file.replace(/\.[^.]+$/, '.PNG')}`
+    return { src, thumb, index: i+1 }
+  })
 }
 
 export function getFolderItems(){
-  // labels now resolved via i18n; keep only keys
+  // Only keys; labels resolved via i18n
   return folderDefs.map(({ key }) => ({ key }))
 }
 
 export function buildFolderVideos(){
   const map = {}
   for(const def of folderDefs){
-    const files = videoFiles[def.dir] || []
-    map[def.key] = files.map((file, i) => ({
-      // If a sidecar PNG with same base name exists, use it as a clean thumbnail preview (placed manually in public folder)
-      // e.g. 1.MOV -> 1.PNG in same directory.
-      thumb: `/videos/${def.dir}/${file.replace(/\.[^.]+$/, '.PNG')}`,
-      // alt will be constructed in component using translation pattern
-      index: i+1,
-      src: `/videos/${def.dir}/${file}`
-    }))
+    map[def.key] = getVideosForDir(def.dir)
   }
   return map
 }
@@ -46,7 +41,6 @@ export function resolveFolderByKey(key){
   return folderDefs.find(f => f.key === key) || null
 }
 
-// Flatten all videos (for random samples on main page)
 export function getAllVideosFlat(){
   const map = buildFolderVideos()
   const out = []

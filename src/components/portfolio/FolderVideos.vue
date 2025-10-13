@@ -35,6 +35,7 @@
             ></video>
             <button class="inline-close" @click="closeVideo" :aria-label="t('portfolioUI.back','Back')">×</button>
           </div>
+          <div class="fv-name" :title="fileBase(v.src)">{{ fileBase(v.src) }}</div>
         </div>
       </div>
     </div>
@@ -212,7 +213,14 @@ export default {
       setupObserver()
     })
 
-    return { activeVideo, openVideo, closeVideo, translatedLabel, altFor, goBack, t, previewSrc, hasGenerated, itemEls, isActive, startHover, stopHover, hoverVideo }
+    function fileBase(src){
+      try{
+        const name = (src||'').split('/').pop() || ''
+        return name.replace(/\.[^/.]+$/, '')
+      }catch(e){ return src }
+    }
+
+    return { activeVideo, openVideo, closeVideo, translatedLabel, altFor, goBack, t, previewSrc, hasGenerated, itemEls, isActive, startHover, stopHover, hoverVideo, fileBase }
   }
 }
 </script>
@@ -225,7 +233,7 @@ export default {
 .fv-title{margin:0;font-size:clamp(1.8rem,4vw,2.4rem);font-weight:650;letter-spacing:.5px}
 .fv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:2.4rem}
 @media (max-width:780px){.fv-grid{gap:1.6rem;grid-template-columns:repeat(auto-fill,minmax(155px,1fr))}}
-.fv-item .thumb{position:relative;border-radius:56px;overflow:hidden;aspect-ratio:9/16;background:linear-gradient(180deg,#c68fc1,#d6b0d2);box-shadow:0 18px 60px -20px rgba(0,0,0,.30);transition:transform .55s cubic-bezier(.16,.8,.3,1),box-shadow .55s;cursor:pointer}
+.fv-item .thumb{position:relative;border-radius:56px;overflow:hidden;aspect-ratio:9/16;background:#000;box-shadow:0 18px 60px -20px rgba(0,0,0,.30);transition:transform .55s cubic-bezier(.16,.8,.3,1),box-shadow .55s;cursor:pointer}
 .fv-item:hover .thumb{transform:translateY(-10px);box-shadow:0 28px 70px -24px rgba(0,0,0,.42)}
 .inline-player{position:relative;border-radius:56px;overflow:hidden;aspect-ratio:9/16;box-shadow:0 26px 70px -26px rgba(0,0,0,.45);background:#000;display:flex}
 .inline-player video{width:100%;height:100%;object-fit:cover;display:block}
@@ -236,6 +244,8 @@ export default {
 .fv-item:hover img.placeholder{opacity:.24}
 .fv-item .play{position:absolute;inset:auto auto 1.25rem 1.25rem;background:#fff;border:none;border-radius:999px;padding:.85rem 1rem;font-size:.9rem;cursor:pointer;font-weight:600;box-shadow:0 4px 12px -4px rgba(0,0,0,.36);transition:background .25s,transform .3s}
 .fv-item .play:hover{background:#fff;transform:scale(1.1)}
+/* filename below each item */
+.fv-name{margin-top:.55rem;font-size:.86rem;line-height:1.2;color:#2b2b2b;text-align:center;letter-spacing:.2px;word-break:break-word}
 /* Hover preview layer */
 .hover-preview{position:absolute;inset:0;display:flex;background:#000;animation:fadeIn .35s ease forwards}
 .hover-preview video{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.95) saturate(110%);}

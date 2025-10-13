@@ -11,6 +11,7 @@
   "folders": [
     { "key": "mom", "label": "Mom & Daughter" },
     { "key": "fashionMom", "label": "Fashion mom & daughter" },
+    { "key": "fashion", "label": "Fashion" },
     { "key": "kids", "label": "Kids Toys" },
     { "key": "beauty", "label": "Beauty" },
     { "key": "food", "label": "Food & Beverages" },
