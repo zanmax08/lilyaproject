@@ -17,7 +17,7 @@
             role="button"
             :aria-label="t('portfolioUI.play','Play') + ' ' + altFor(v,i)"
           >
-            <img :src="previewSrc(v)" :alt="altFor(v,i)" :class="{ placeholder: !hasGenerated(v), 'is-hovering': hoverVideo && hoverVideo.src===v.src }" loading="lazy" decoding="async" fetchpriority="low" />
+            <img :src="previewSrc(v)" :alt="altFor(v,i)" :class="{ 'is-hovering': hoverVideo && hoverVideo.src===v.src }" loading="lazy" decoding="async" fetchpriority="low" />
             <div v-if="hoverVideo && hoverVideo.src===v.src" class="hover-preview" :aria-hidden="true">
               <video :src="v.mini || v.src" muted playsinline autoplay loop preload="metadata"></video>
             </div>
@@ -240,8 +240,6 @@ export default {
 .inline-close{position:absolute;top:.4rem;right:.45rem;background:#fff;color:#111;border:1px solid rgba(0,0,0,.12);border-radius:8px;padding:.25rem .55rem;font-size:1rem;line-height:1;cursor:pointer}
 .inline-close:hover{background:#fff}
 .fv-item img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .6s,filter .6s}
-.fv-item img.placeholder{opacity:.14;mix-blend-mode:luminosity;filter:saturate(40%)}
-.fv-item:hover img.placeholder{opacity:.24}
 .fv-item .play{position:absolute;inset:auto auto 1.25rem 1.25rem;background:#fff;border:none;border-radius:999px;padding:.85rem 1rem;font-size:.9rem;cursor:pointer;font-weight:600;box-shadow:0 4px 12px -4px rgba(0,0,0,.36);transition:background .25s,transform .3s}
 .fv-item .play:hover{background:#fff;transform:scale(1.1)}
 /* filename below each item */
