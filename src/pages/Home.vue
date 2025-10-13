@@ -562,14 +562,11 @@ html[lang='ru'] .hero-title{font-size:5.4rem;line-height:.95;word-break:normal}
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0,0,0,.2);
-  backdrop-filter: blur(1px);
+  background: rgba(255,255,255,0.0);
   transition: opacity 0.3s ease;
 }
 
-.intro-screens .video-overlay:hover {
-  background: rgba(0,0,0,.25);
-}
+.intro-screens .video-overlay:hover { background: rgba(255,255,255,0.0); }
 
 .intro-screens .play-button-large {
   width: 56px;
@@ -604,10 +601,9 @@ html[lang='ru'] .hero-title{font-size:5.4rem;line-height:.95;word-break:normal}
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(0,0,0,.65);
-  backdrop-filter: blur(8px);
-  border: none;
-  color: #fff;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.12);
+  color: #111;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -617,10 +613,7 @@ html[lang='ru'] .hero-title{font-size:5.4rem;line-height:.95;word-break:normal}
   padding: 0;
 }
 
-.intro-screens .control-btn:hover {
-  background: rgba(0,0,0,.8);
-  transform: scale(1.08);
-}
+.intro-screens .control-btn:hover { background: #fff; transform: scale(1.08); }
 
 .intro-screens .control-btn:active {
   transform: scale(0.95);

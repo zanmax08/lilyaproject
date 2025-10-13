@@ -233,12 +233,12 @@ export default {
 .fv-title{margin:0;font-size:clamp(1.8rem,4vw,2.4rem);font-weight:650;letter-spacing:.5px}
 .fv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:2.4rem}
 @media (max-width:780px){.fv-grid{gap:1.6rem;grid-template-columns:repeat(auto-fill,minmax(155px,1fr))}}
-.fv-item .thumb{position:relative;border-radius:56px;overflow:hidden;aspect-ratio:9/16;background:#000;box-shadow:0 18px 60px -20px rgba(0,0,0,.30);transition:transform .55s cubic-bezier(.16,.8,.3,1),box-shadow .55s;cursor:pointer}
+.fv-item .thumb{position:relative;border-radius:56px;overflow:hidden;aspect-ratio:9/16;background:transparent;box-shadow:0 18px 60px -20px rgba(0,0,0,.18);transition:transform .55s cubic-bezier(.16,.8,.3,1),box-shadow .55s;cursor:pointer}
 .fv-item:hover .thumb{transform:translateY(-10px);box-shadow:0 28px 70px -24px rgba(0,0,0,.42)}
-.inline-player{position:relative;border-radius:56px;overflow:hidden;aspect-ratio:9/16;box-shadow:0 26px 70px -26px rgba(0,0,0,.45);background:#000;display:flex}
+.inline-player{position:relative;border-radius:56px;overflow:hidden;aspect-ratio:9/16;box-shadow:0 26px 70px -26px rgba(0,0,0,.25);background:transparent;display:flex}
 .inline-player video{width:100%;height:100%;object-fit:cover;display:block}
-.inline-close{position:absolute;top:.4rem;right:.45rem;background:rgba(0,0,0,.45);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:8px;padding:.25rem .55rem;font-size:1rem;line-height:1;cursor:pointer;backdrop-filter:blur(4px);}
-.inline-close:hover{background:rgba(0,0,0,.65)}
+.inline-close{position:absolute;top:.4rem;right:.45rem;background:#fff;color:#111;border:1px solid rgba(0,0,0,.12);border-radius:8px;padding:.25rem .55rem;font-size:1rem;line-height:1;cursor:pointer}
+.inline-close:hover{background:#fff}
 .fv-item img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .6s,filter .6s}
 .fv-item img.placeholder{opacity:.14;mix-blend-mode:luminosity;filter:saturate(40%)}
 .fv-item:hover img.placeholder{opacity:.24}
@@ -247,7 +247,7 @@ export default {
 /* filename below each item */
 .fv-name{margin-top:.55rem;font-size:.86rem;line-height:1.2;color:#2b2b2b;text-align:center;letter-spacing:.2px;word-break:break-word}
 /* Hover preview layer */
-.hover-preview{position:absolute;inset:0;display:flex;background:#000;animation:fadeIn .35s ease forwards}
+.hover-preview{position:absolute;inset:0;display:flex;animation:fadeIn .35s ease forwards}
 .hover-preview video{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.95) saturate(110%);}
 @keyframes fadeIn{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:scale(1)} }
 @media (hover:none){ .hover-preview{display:none!important} }
